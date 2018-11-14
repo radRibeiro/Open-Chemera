@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Compiler Value="/usr/bin/fpc" Date="1454174389"/>
+  <Params Value=" -MObjFPC -Scghi -Cg -Cirot -O1 -g -gl -l -vewnhibq -Fi/home/ricardoribeiro/Desktop/Open-Chemera/oclibrary/cclassif/lib/x86_64-linux -Fu/home/ricardoribeiro/Desktop/Open-Chemera/oclibrary/learning -Fu/home/ricardoribeiro/Desktop/Open-Chemera/sharedunits/general -Fu/home/ricardoribeiro/Desktop/Open-Chemera/sharedunits/utils -Fu/home/ricardoribeiro/Desktop/Open-Chemera/sharedunits/learning -Fu/home/ricardoribeiro/Desktop/Open-Chemera/oclibrary/cclassif/ -FU/home/ricardoribeiro/Desktop/Open-Chemera/oclibrary/cclassif/lib/x86_64-linux/ cclassif.lpr"/>
+  <Complete Value="False"/>
+</CONFIG>

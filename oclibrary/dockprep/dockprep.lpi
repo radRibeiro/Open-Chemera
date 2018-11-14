@@ -48,72 +48,58 @@
       <Unit0>
         <Filename Value="dockprep.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="dockprep"/>
       </Unit0>
       <Unit1>
         <Filename Value="..\docking\docktasks.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="docktasks"/>
       </Unit1>
       <Unit2>
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="geomutils"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="basetypes"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\molecule\molecules.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="molecules"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\base\oclconfiguration.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="oclconfiguration"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\sharedunits\utils\stringutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="stringutils"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\..\sharedunits\utils\quicksort.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="quicksort"/>
       </Unit7>
       <Unit8>
         <Filename Value="..\molecule\molfit.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="molfit"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\..\sharedunits\display\base3ddisplay.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="base3ddisplay"/>
       </Unit9>
       <Unit10>
         <Filename Value="..\sequence\alignment.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="alignment"/>
       </Unit10>
       <Unit11>
         <Filename Value="..\..\sharedunits\forms\progress.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="progress"/>
       </Unit11>
       <Unit12>
         <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="geomhash"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\docking\protinter.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="protinter"/>
       </Unit13>
     </Units>
   </ProjectOptions>
@@ -140,12 +126,6 @@
         <OptimizationLevel Value="0"/>
       </Optimizations>
     </CodeGeneration>
-    <Other>
-      <CompilerMessages>
-        <MsgFileName Value=""/>
-      </CompilerMessages>
-      <CompilerPath Value="$(CompPath)"/>
-    </Other>
   </CompilerOptions>
   <Debugging>
     <Exceptions Count="4">

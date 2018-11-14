@@ -36,6 +36,7 @@ type
     FRads:TFloats;
     procedure GridBounds(out B1,B2:Integer; const Val:TFloat; const Hi:Integer);
       //Computes bounds of neighboring cells in one dimension, with max of Hi
+    procedure PrintTCoords(C:TCoord);
   public
     constructor Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
     function ListNeighours(C:TCoord):TIntegers;
@@ -43,6 +44,7 @@ type
       //of the cell corresponding to C
     function IsInnerPoint(C:TCoord):Boolean;
       //Use only if Rads supplied in create; otherwise points are not kept
+
   end;
 implementation
 
@@ -58,7 +60,12 @@ begin
   if B2>Hi then B2:=Hi;
   if B2<0 then B2:=0;
 end;
-
+procedure TGeomHasher.PrintTCoords(C:TCoord);
+begin
+     WriteLn('C[0]',C[0]);
+     WriteLn('C[1]',C[1]);
+     WriteLn('C[2]',C[2]);
+end;
 constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
 
   procedure Setup;
@@ -146,13 +153,22 @@ function TGeomHasher.IsInnerPoint(C: TCoord): Boolean;
 var
   x,y,z,x1,x2,y1,y2,z1,z2,f,ix:Integer;
   tmpc:TCoord;
-
+  h : biggerHandle;
+ //Passar o apontador
+ //
+ //Código C++
+ //typedef
+ // using TCoord = marrow::array <double,3>
+ //como mapear um array de n dimensões num array
+ //void dist(double * pointer ){TCoord c (p); ...}
 begin
   tmpc:=Multiply(Add(C,FShiftToGrid),FInvGridStep);
   Result:=False;
   GridBounds(x1,x2,tmpc[0],FHighX);
   GridBounds(y1,y2,tmpc[1],FHighY);
   GridBounds(z1,z2,tmpc[2],FHighZ);
+  //PrintTCoords(tmpc);
+
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
@@ -162,11 +178,13 @@ begin
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
           ix:=FHashGrid[x,y,z,f];
+
           if Distance(C,FPoints[ix])<FRads[ix] then
             begin
             Result:=True;
             Break;
             end;
+
           end;
         if Result then Break;
         end;
@@ -174,7 +192,7 @@ begin
       end;
     if Result then Break;
     end;
+
 end;
 
 end.
-

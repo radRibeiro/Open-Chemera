@@ -65,6 +65,7 @@ begin
   { add your program here }
 
   jobfile:=GetOptionValue('j');
+
   if jobfile<>'' then
     begin
     biggerman:=TBiGGERManager.Create;

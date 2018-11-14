@@ -164,7 +164,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, docktasks, molecules, pdbmolecules, molfit,
   oclconfiguration, alignment, geomutils, stringutils, quicksort, geomhash,
-  basetypes, base3ddisplay, progress, CustApp, rotations,molutils,protinter
+  basetypes, base3ddisplay, progress, CustApp, rotations,molutils
   { you can add units after this };
 
 type
@@ -646,13 +646,14 @@ var
     modelman:=TPDBModelMan.Create(Config.MonomersPath);
     target:=modelman.LoadLayer(pdbpath+run.TargetFile);
     probe:=modelman.LoadLayer(pdbpath+run.ProbeFile);
-    for cs:=0 to High(run.ConstraintSets) do
+    //COMENTADO PARA FINS DE COMPILACAO
+   { for cs:=0 to High(run.ConstraintSets) do
       begin
-      scores:=ResidueContactScore(target,probe,run.ConstraintSets[cs].DockModels,
+     scores:=ResidueContactScore(target,probe,run.ConstraintSets[cs].DockModels,
               contactmat,3);
       for id:=0 to High(scores) do
           WriteLn(scores[id]);
-      end;
+      end;    }
     modelman.Free;
     FreeOrders(runs);
   end;

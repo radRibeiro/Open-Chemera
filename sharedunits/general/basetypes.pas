@@ -47,7 +47,7 @@ type
   TSingles = array of Single;
   TMatrix= array of TFloats;
   TCoord = array [0..2] of TFloat; //3D coords ou 3D vector
-  TCoords = array of TCoord;
+   TCoords = array of TCoord;
   TCoordGroups = array of TCoords;
   TIntegers = array of Integer;
   TIntegerTable = array of TIntegers;

@@ -23,7 +23,7 @@ type
   TRotMatrixArray=array of TRotMatrix;
   TQuaternion=array[0..3] of TFloat;
   TQuaternions=array of TQuaternion;
-
+  biggerHandle = type pointer;
 const
   IdentityMatrix:TRotMatrix=((1,0,0),(0,1,0),(0,0,1));
   IdentityQuaternion:TQuaternion=(1,0,0,0);
@@ -66,8 +66,12 @@ function Scaled(const Vec:TCoord; const Scale:TFloat):TCoord;
 
 function Simmetric(Vec:TCoord):TCoord;overload;
 function Simmetric(Coords:TCoords):TCoords;overload;
+//
 
-function Distance(Vec1,Vec2:TCoord):TFloat;overload;
+
+function Distance(Vec1,Vec2:TCoord):TFloat;overload; cdecl;
+
+
 function Distance(Vecs1,Vecs2:TCoords):TFloats;overload;
 function Distance(Quart1,Quart2:TQuaternion):TFloat;overload; //euclidean
 
@@ -160,7 +164,10 @@ function LongestCoord(c:TCoord):TFloat;
 implementation
 
 uses Math;
-
+//Invocar .so do marrow protein docking
+{$linklib libmarrow_protein_docking.so}
+{$linklib c}
+{$linklib stdc++}
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin
   Result[0]:=r;
@@ -375,11 +382,12 @@ begin
   SetLength(Result,Length(Coords));
   for f:=0 to High(Coords) do Result[f]:=Simmetric(Coords[f]);
 end;
+// parallelized by marrow (libmarrow.so)
+function Distance(Vec1, Vec2: TCoord): TFloat; cdecl; external;
 
-function Distance(Vec1, Vec2: TCoord): TFloat;
-begin
-  Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));
-end;
+//begin
+ // Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));
+//end;
 
 function Distance(Vecs1, Vecs2: TCoords): TFloats;
 

@@ -749,19 +749,17 @@ function FarthestPoint(const Points,Subset:TCoords;LastPoint:Integer=-1):Integer
 var
   f,g:Integer;
   best,tmp,d:TFloat;
-  h:biggerHandle;
 begin
-     h:= CreateHandle();
   if LastPoint<0 then
     LastPoint:= High(Subset);
   Result := -1;
   best := -1;
   for f:=0 to High(Points) do
     begin
-    tmp := Distance(h,Points[f],Subset[0]);
+    tmp := Distance(Points[f],Subset[0]);
     for g := 1 to LastPoint do
       begin
-      d := Distance(h,Points[f],Subset[g]);
+      d := Distance(Points[f],Subset[g]);
       if d<tmp then
         tmp := d;
       end;
@@ -771,7 +769,6 @@ begin
       Result := f;
       end;
     end;
-  DeleteHandle(h);
 end;
 
 function SpacedPoints(Coords: TCoords; NumPoints: Integer): TIntegers;

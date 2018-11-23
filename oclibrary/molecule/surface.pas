@@ -77,7 +77,7 @@ var
   ixs:TIntegers;
   intersect:Boolean;
   hashcell:Single;
-  handle:biggerHandle ;
+
 begin
   SetLength(Result,Length(Points));
   if Points=nil then Exit;

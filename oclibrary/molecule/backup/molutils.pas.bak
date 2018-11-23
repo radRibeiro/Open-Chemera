@@ -129,15 +129,13 @@ var
       h:biggerHandle;
 begin
   Result:=False;
-  h:= CreateHandle();
   for f:=0 to High(Atoms1) do
     for g:=0 to High(Atoms2) do
-      if Distance(h,Atoms1[f].Coords,Atoms2[g].Coords)<=Dist then
+      if Distance(Atoms1[f].Coords,Atoms2[g].Coords)<=Dist then
         begin
         Result:=True;
         Break;
         end;
-  DeleteHandle(h);
 end;
 
 

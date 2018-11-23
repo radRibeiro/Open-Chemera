@@ -333,7 +333,6 @@ function TRotationManager.IsRedundant(Points: TCoords;
 var
   f,g:Integer;
   dist,maxdist:TFloat;
-  h:biggerHandle;
 begin
   Result:=False;
   for f:=0 to High(FRotationPoints) do
@@ -749,7 +748,6 @@ function FarthestPoint(const Points,Subset:TCoords;LastPoint:Integer=-1):Integer
 var
   f,g:Integer;
   best,tmp,d:TFloat;
-  h:biggerHandle;
 begin
   if LastPoint<0 then
     LastPoint:= High(Subset);

@@ -30,7 +30,7 @@ type
   private
     FHashGrid:array of array of array of TIntegers;  //indexes of hashed points
     FShiftToGrid:TCoord;
-    FInvGridStep:TFloat;                             // 1/gridstep
+    FInvGridStep:TFloat;                             //1/gridstep
     FHighX,FHighY,FHighZ:Integer;                      //max grid cells
     FPoints:TCoords;
     FRads:TFloats;
@@ -44,7 +44,6 @@ type
       //of the cell corresponding to C
     function IsInnerPoint(C:TCoord):Boolean;
       //Use only if Rads supplied in create; otherwise points are not kept
-
   end;
 implementation
 
@@ -62,6 +61,7 @@ begin
 end;
 procedure TGeomHasher.PrintTCoords(C:TCoord);
 begin
+     WriteLn('TCOORDS: ');
      WriteLn('C[0]',C[0]);
      WriteLn('C[1]',C[1]);
      WriteLn('C[2]',C[2]);
@@ -153,7 +153,6 @@ function TGeomHasher.IsInnerPoint(C: TCoord): Boolean;
 var
   x,y,z,x1,x2,y1,y2,z1,z2,f,ix:Integer;
   tmpc:TCoord;
-  h : biggerHandle;
  //Passar o apontador
  //
  //Código C++
@@ -167,8 +166,9 @@ begin
   GridBounds(x1,x2,tmpc[0],FHighX);
   GridBounds(y1,y2,tmpc[1],FHighY);
   GridBounds(z1,z2,tmpc[2],FHighZ);
-  //PrintTCoords(tmpc);
 
+       //Substituir os loops por uma chamada do isInnerPoint do marrow
+       //isInnerPointM();
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
@@ -178,13 +178,16 @@ begin
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
           ix:=FHashGrid[x,y,z,f];
-          h:= CreateHandle();
-          if Distance(h,C,FPoints[ix])<FRads[ix] then
+         // PrintTCoords(C);
+         // PrintTCoords(FPoints[ix]);
+     //    WriteLn('length of FRads',length(FRads));
+      //      WriteLn('length of FPoints',length(FPoints));
+          if Distance(C,FPoints[ix])<FRads[ix] then
             begin
             Result:=True;
             Break;
             end;
-          DeleteHandle(h);
+
           end;
         if Result then Break;
         end;

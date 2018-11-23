@@ -23,7 +23,6 @@ type
   TRotMatrixArray=array of TRotMatrix;
   TQuaternion=array[0..3] of TFloat;
   TQuaternions=array of TQuaternion;
-  biggerHandle = type pointer;
 const
   IdentityMatrix:TRotMatrix=((1,0,0),(0,1,0),(0,0,1));
   IdentityQuaternion:TQuaternion=(1,0,0,0);
@@ -66,10 +65,10 @@ function Scaled(const Vec:TCoord; const Scale:TFloat):TCoord;
 
 function Simmetric(Vec:TCoord):TCoord;overload;
 function Simmetric(Coords:TCoords):TCoords;overload;
-//
+//Marrow accelerated function for isInnerPoint
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats):Boolean;cdecl;
 
-
-function Distance(Vec1,Vec2:TCoord):TFloat;overload; cdecl;
+function Distance(Vec1,Vec2:TCoord):TFloat;overload;
 
 
 function Distance(Vecs1,Vecs2:TCoords):TFloats;overload;
@@ -382,12 +381,11 @@ begin
   SetLength(Result,Length(Coords));
   for f:=0 to High(Coords) do Result[f]:=Simmetric(Coords[f]);
 end;
-// parallelized by marrow (libmarrow.so)
-function Distance(Vec1, Vec2: TCoord): TFloat; cdecl; external;
-
-//begin
- // Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));
-//end;
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats):Boolean;cdecl;external;
+function Distance(Vec1, Vec2: TCoord): TFloat;
+begin
+  Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));
+end;
 
 function Distance(Vecs1, Vecs2: TCoords): TFloats;
 
@@ -396,7 +394,7 @@ var f:Integer;
 begin
   SetLength(Result,Min(Length(Vecs1),Length(Vecs2)));
   for f:=0 to High(Result) do
-    Result[f]:=Distance(handle,Vecs1[f],Vecs2[f]);
+    Result[f]:=Distance(Vecs1[f],Vecs2[f]);
 end;
 
 function Distance(Quart1, Quart2: TQuaternion): TFloat;

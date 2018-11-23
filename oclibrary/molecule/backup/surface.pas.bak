@@ -77,7 +77,6 @@ var
   ixs:TIntegers;
   intersect:Boolean;
   hashcell:Single;
-  handle:biggerHandle ;
 begin
   SetLength(Result,Length(Points));
   if Points=nil then Exit;
@@ -102,7 +101,6 @@ begin
       end;
     Result[f]:=4*Pi*Sqr(Radii[f])/Length(SpherePoints)*countouts;
     end;
-  DeleteHandle(handle);
   ghash.Free;
 end;
 

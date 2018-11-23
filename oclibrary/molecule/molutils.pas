@@ -126,7 +126,6 @@ function AtomsInContact(const Atoms1, Atoms2: TAtoms; const Dist: TFloat): Boole
 
 var
   f,g:Integer;
-      h:biggerHandle;
 begin
   Result:=False;
   for f:=0 to High(Atoms1) do

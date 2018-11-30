@@ -29,19 +29,19 @@ uses
 const
   //Tiny is a small number that generally should be rounded to zero,
   //as in most cases it is due to rounding errors.
-  {$IFDEF SINGLEPRECISION}
+  //{$IFDEF SINGLEPRECISION}
   Tiny = 1e-6;
-  {$ELSE}
-  Tiny = 1e-12;
-  {$ENDIF}
+  //{$ELSE}
+  //Tiny = 1e-12;
+ // {$ENDIF}
 
 type
   TSimpleStrings = array of string;
-  {$IFDEF SINGLEPRECISION}
+ // {$IFDEF SINGLEPRECISION}
   TFloat = Single;
-  {$ELSE}
-  TFloat = Double; //This is the default
-  {$ENDIF}
+  //{$ELSE}
+  //TFloat = Double; //This is the default
+  //{$ENDIF}
   TFloats = array of TFloat;
   TDoubles = array of Double;
   TSingles = array of Single;
@@ -110,13 +110,13 @@ type
   procedure AppendToArray(const Suffix:TIntegers; var Arr:TIntegers);overload;
   procedure AppendToArray(const Suffix:TFloats; var Arr:TFloats);overload;
 
-  function Min(vals:TFLoats):TFLoat;overload;
+  function Min(vals:TFLoats):TFLoat;
   function Max(vals:TFLoats):TFLoat;overload;
   function Min(vals:TMatrix):TFLoat;overload;
   function Max(vals:TMatrix):TFLoat;overload;
   function Min(vals:TCoords):TCoord;overload;
   function Max(vals:TCoords):TCoord;overload;
-  function Min(vals:TIntegers):Integer;overload;
+  function Min(vals:TIntegers):Integer; overload;
   function Max(vals:TIntegers):Integer;overload;
 
   function MinIx(vals:TFLoats):Integer;overload;
@@ -750,7 +750,7 @@ function Sum(const Vals1, Vals2: TFloats): TFloats;
 var f,len:Integer;
 
 begin
-  len:=Min(Length(Vals1),Length(Vals2));
+  len:=Min(LongInt(Length(Vals1)), LongInt(Length(Vals2)));
   SetLength(Result,len);
   for f:=0 to High(Result) do
     Result[f]:=Vals1[f]+Vals2[f];

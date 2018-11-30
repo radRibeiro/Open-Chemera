@@ -25,7 +25,7 @@ print 'Number of arguments:', len(sys.argv), 'arguments.'
 print 'Argument List:', str(sys.argv[7])
 # filename cube/sphere radius size
 # EX: dummyJobCreator.py probe sphere 500 1.5 target sphere 150 1.5 1000 500
-#     dummyJobCreator.py probe cube 5 1.5 target cube 8 1.5
+#     dummyJobCreator.py probe cube 5 1.5 target cube 8 1.5 1000 500
 #     dummyJobCreator.py target sphere 3375 1.0 probe sphere 1728 1.0
 #Sphere generation src: http://cubo2.net/blog/category/python/
 if len(sys.argv) < 2 : 
@@ -98,6 +98,18 @@ else :
 	jcs = ET.SubElement(doc,"JointConstraintSet",Name = "Unconstrained", NumModels = "5000")
 	jcs.set("MinOverlap",sys.argv[11])
 	tree = ET.ElementTree(root)
-	fileString = "jobFiles/{}{}dummyJobP{}T{}R{}O{}.xml"
-	tree.write(fileString.format(sys.argv[3],sys.argv[7],sys.argv[4]
-     ,sys.argv[8],sys.argv[10],sys.argv[11]))
+	if sys.argv[3] == "cube": 
+        	PSize = int(sys.argv[4])**3
+        	PType = "C"
+	else:
+        	PSize = int(sys.argv[4])
+        	PType = "E"
+	if sys.argv[7] == "cube":          
+        	TSize = int(sys.argv[8])**3
+        	TType = "C"
+	else:
+        	TSize = int(sys.argv[8])
+        	TType = "E"
+	fileString = "jobFiles/{}{}dummyJobT{}P{}R{}O{}.xml"
+	tree.write(fileString.format(TType,PType,TSize
+     ,PSize,sys.argv[10],sys.argv[11]))

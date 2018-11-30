@@ -180,8 +180,8 @@ begin
           ix:=FHashGrid[x,y,z,f];
          // PrintTCoords(C);
          // PrintTCoords(FPoints[ix]);
-        WriteLn('length of FRads',length(FRads));
-           WriteLn('length of FPoints',length(FPoints));
+  //         WriteLn('length of FRads ',length(FRads));
+   //        WriteLn('length of FPoints ',length(FPoints));
           if Distance(C,FPoints[ix])<FRads[ix] then
             begin
             Result:=True;

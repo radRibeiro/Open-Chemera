@@ -57,6 +57,11 @@ type
   TCuboid=array[0..1] of TCoord;
   TCuboids=array of TCuboid;
 
+  TLineSegment=array [0..1] of Integer;  //start, end of segment
+  TGridLine=array of TLineSegment;       //disjunt segments sorted from lower to high
+  TLineArray=array of TGridLine;
+  TGridPlane=array of array of TGridLine;
+
   procedure ForceNotZero(var Val:TFloat);
     //ensures Val<=-Tiny or Val>=Tiny
 

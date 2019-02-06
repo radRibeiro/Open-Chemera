@@ -750,7 +750,7 @@ function Sum(const Vals1, Vals2: TFloats): TFloats;
 var f,len:Integer;
 
 begin
-  len:=Min(Length(Vals1),Length(Vals2));
+  len:=Min(LongInt(Length(Vals1)), LongInt(Length(Vals2)));
   SetLength(Result,len);
   for f:=0 to High(Result) do
     Result[f]:=Vals1[f]+Vals2[f];

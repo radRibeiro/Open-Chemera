@@ -23,6 +23,7 @@ type
   TRotMatrixArray=array of TRotMatrix;
   TQuaternion=array[0..3] of TFloat;
   TQuaternions=array of TQuaternion;
+
 const
   IdentityMatrix:TRotMatrix=((1,0,0),(0,1,0),(0,0,1));
   IdentityQuaternion:TQuaternion=(1,0,0,0);
@@ -32,7 +33,9 @@ const
   MCXYZRotation=0;
   MCRotationXYAxis=1;
 
-
+var
+   zLineExt : TIntegers; external name 'zlineExt';
+   test : Integer; external name 'test';
 function Quaternion(r,i,j,k:TFloat):TQuaternion;
 
 function Add(v1:TCoord;r:TFloat):TCoord;overload;
@@ -66,7 +69,7 @@ function Scaled(const Vec:TCoord; const Scale:TFloat):TCoord;
 function Simmetric(Vec:TCoord):TCoord;overload;
 function Simmetric(Coords:TCoords):TCoords;overload;
 //Marrow accelerated function for isInnerPoint
-function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats):Boolean;cdecl;
+
 
 function Distance(Vec1,Vec2:TCoord):TFloat;overload;
 
@@ -160,6 +163,13 @@ function BottomCorner(c1,c2:TCoord):TCoord;
 function SmallestAxis(c:TCoord):Integer;
 function LongestCoord(c:TCoord):TFloat;
    }
+// Marrow functions
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
+  ;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;
+procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+  ; fRads:TFloats;gridPoints:Integer
+  ;fPointsNR:Integer; fRadsNR:Integer)cdecl;
+
 implementation
 
 uses Math;
@@ -167,6 +177,12 @@ uses Math;
 {$linklib libmarrow_protein_docking.so}
 {$linklib c}
 {$linklib stdc++}
+
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;external;
+
+procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+  ; fRads:TFloats;gridPoints:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
+
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin
   Result[0]:=r;
@@ -381,7 +397,8 @@ begin
   SetLength(Result,Length(Coords));
   for f:=0 to High(Coords) do Result[f]:=Simmetric(Coords[f]);
 end;
-function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats):Boolean;cdecl;external;
+
+
 function Distance(Vec1, Vec2: TCoord): TFloat;
 begin
   Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));

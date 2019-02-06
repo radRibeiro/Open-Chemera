@@ -29,7 +29,7 @@ uses
   Classes, SysUtils, geomhash, CustApp, linegrids, dockdomains, geomutils,
   basetypes, dockconstraints, bogie, surface, docktasks, biggerman,
   oclconfiguration, alignment, rmsd, cgradient, base3ddisplay, progress,
-rotations, unit1;
+rotations;
 
 type
 
@@ -95,7 +95,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TBigger.WriteHelp;
+procedure TBigger.WriteHelp;               rr
 begin
   { add your help code here }
   writeln('Usage: ',ExeName,' -h');

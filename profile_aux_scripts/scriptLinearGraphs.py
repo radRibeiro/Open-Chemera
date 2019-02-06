@@ -131,8 +131,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 functions = ["distance","isInnerPoint","setextremes","addModel"]
 overlaps = ["O0","O500","O1000","O2000","O200000"]
+speedupLabel = "Speedup"
 
-cubes = ["T512 P216","T3375 P1728","T19683 P6859","T32678 P19683"]
+cubes = ["T512P216","T3375P1728","T19683P6859","T32678P19683"]
 rotations = ["R100","R1000","R1500","R2000","R6000","R15000"]
 #"T512 P216"
             # O0 "T512 P216"
@@ -238,6 +239,13 @@ valMatrix = [
             ,[3.02,4.93,3.81,3.83,2.15,2.16]#"setextremes" 78
             ,[0,0,0,0,0,0]#"addModel"79
              ]
+                #t1-t2 (Rounded seconds)
+                #T32678 P19683 O0
+speedupMatrix = [[[977.121,0],[712.441,0],[1050.257,0],[1255.129,0],[13029.835,0],[5943.501,0]],
+                 [[1233.575,0],[2007.169,0],[2403.752,0],[2756.6574,0],[13150.453,0],[9466.719,0]],
+                 [[1345.677,0],[2103.700,0],[2508.133,0],[2822.275,0],[3669.290,0],[9221.162,0]],
+                 [[1345.595,0],[2002.787,0],[2407.285,0],[1233.575,0],[13611.654,0],[7298.634,0]],
+                 [[1233.575,0],[998.684,0],[1500.937,0],[2024.826,0],[14311.472,0],[9177.245,0]]]
 #plot by cubeSize
 #fixed rotations and overlap
 for i in range(len(rotations)):
@@ -253,7 +261,7 @@ for i in range(len(rotations)):
             plt.ylabel('self')            
             plt.legend(functions)
             plt.title(rotations[i]+"_"+overlaps[j])
-            plt.savefig("esferas/graficos/A variar tamanhos"+"/"+rotations[i]+"_"+overlaps[j]+".png")
+            plt.savefig("esferas/graficos/A variar tamanhos/"+rotations[i]+"_"+overlaps[j]+".png")
             fig = plt.figure()
             ax = fig.add_subplot()
             for a,b in zip(x, toPlotdistance): 
@@ -287,7 +295,7 @@ for i in range(len(cubes)):
            plt.ylabel('self') 
            plt.legend(functions)
            plt.title(cubes[i]+"_"+overlaps[j])
-           plt.savefig("esferas/graficos/A variar rotacoes"+"/"+cubes[i]+"_"+overlaps[j]+".png")
+           plt.savefig("esferas/graficos/A variar rotacoes/"+cubes[i]+"_"+overlaps[j]+".png")
            fig = plt.figure()
            ax = fig.add_subplot()
            for a,b in zip(x, toPlotdistance): 
@@ -299,7 +307,7 @@ for i in range(len(cubes)):
            for a,b in zip(x, toPlotaddModel): 
                 plt.text(a, b, str(b))
            plt.close('all')
-#plot by overlap
+#plot by minOverlap
 #fixed cube sizes and rotations          
 for i in range(len(cubes)):
     for k in range(len(rotations)):
@@ -320,7 +328,7 @@ for i in range(len(cubes)):
                 plt.ylabel('self')                 
                 plt.legend(functions)
                 plt.title(cubes[i]+"_"+rotations[k])
-                plt.savefig("esferas/graficos/A variar overlap"+"/"+cubes[i]+"_"+rotations[k]+".png")
+                plt.savefig("esferas/graficos/A variar overlap/"+cubes[i]+"_"+rotations[k]+".png")
                 fig = plt.figure()
                 ax = fig.add_subplot()
                 for a,b in zip(x, toPlotdistance): 
@@ -332,4 +340,23 @@ for i in range(len(cubes)):
                 for a,b in zip(x, toPlotaddModel): 
                     plt.text(a, b, str(b))
                 plt.close('all')
-#plot by minOverlap
+#plot by speedup
+for i in range(len(overlaps)):
+    for k in range(len(rotations)):
+        toPlotSpeedup = [(speedupMatrix[i][k][0]/speedupMatrix[i][k][1]),
+                         (speedupMatrix[i][k][0]/speedupMatrix[i][k][1]),
+                         (speedupMatrix[i][k][0]/speedupMatrix[i][k][1]),
+                         (speedupMatrix[i][k][0]/speedupMatrix[i][k][1]),
+                         (speedupMatrix[i][k][0]/speedupMatrix[i][k][1]),
+                         (speedupMatrix[i][k][0]/speedupMatrix[i][k][1])]
+    x = np.array([0,1,2,3,4])
+    plt.xticks(x,rotations)
+    plt.plot(x,toPlotSpeedup)
+    plt.ylabel('speedup')
+    plt.title("speedup for "+cubes[3]+" with overlap: "+overlaps[k])
+    plt.savefig("speedup/"+cubes[3]+"_"+overlaps[k]+".png")
+    fig = plt.figure()
+    ax = fig.add_subplot()
+    for a,b in zip(x, toPlotSpeedup): 
+        plt.text(a, b, str(b))
+    plt.close('all')

@@ -166,10 +166,13 @@ begin
   GridBounds(x1,x2,tmpc[0],FHighX);
   GridBounds(y1,y2,tmpc[1],FHighY);
   GridBounds(z1,z2,tmpc[2],FHighZ);
+  //WriteLn('length of FRads ',length(FRads));
+  //Substituir os loops por uma chamada do isInnerPoint do marrow
+  WriteLn('length of FRads ',length(FRads));
+  WriteLn('length of FPoints ',length(FPoints));
+  isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
 
-       //Substituir os loops por uma chamada do isInnerPoint do marrow
-       //isInnerPointM();
-  for x:=x1 to x2 do
+  {for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
       begin
@@ -180,8 +183,8 @@ begin
           ix:=FHashGrid[x,y,z,f];
          // PrintTCoords(C);
          // PrintTCoords(FPoints[ix]);
-           WriteLn('length of FRads ',length(FRads));
-           WriteLn('length of FPoints ',length(FPoints));
+          // WriteLn('length of FRads ',length(FRads));
+             //WriteLn('length of FPoints ',length(FPoints));
           if Distance(C,FPoints[ix])<FRads[ix] then
             begin
             Result:=True;
@@ -194,7 +197,7 @@ begin
       if Result then Break;
       end;
     if Result then Break;
-    end;
+    end; }
 
 end;
 

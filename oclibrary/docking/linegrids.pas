@@ -423,7 +423,7 @@ var
   halfres,maxrad:TFloat;
   top:TCoord;
   xyzpoint:TCoord;
-  x,y,z:Integer;
+  x,y,z,j,k:Integer;
   zline:TIntegers;
 
 
@@ -442,22 +442,51 @@ begin
   FBase.ZMax:=High(zline);
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
+  //Os 3 fors seguintes fazem a conversão de um ponto da grelha (inteiros)
+  //para tfloat assim como a determinação se o ponto é interno ou não
+  //Para a versão do isInnerPoint que recebe a grelha poderá ser feita a
+  //conversão de todos os pontos da grelha no marrow e chamar o isInnerPoint
+  //que recebe um conjunto de indices de pontos em vez de um ponto.
+  //Desta forma os 3 fors serão substituidos por duas chamadas de funções do marrow
+  //  WriteLn('Grid points ',length(FBase.Grid[0,0]));
   for x:=0 to High(FBase.Grid) do
     begin
-    xyzpoint[0]:=x*FResolution+halfres;
+   // xyzpoint[0]:=x*FResolution+halfres;
+   //  WriteLn(x);
+   //  WriteLn(xyzpoint[0]);
     for y:=0 to High(FBase.Grid[x]) do
       begin
-      xyzpoint[1]:=y*FResolution+halfres;
-      for z:=0 to High(zline) do
+   //   xyzpoint[1]:=y*FResolution+halfres;
+    //   WriteLn(y);
+    //   WriteLn(xyzpoint[1]);
+       //Este for será eliminado: chamada para a função do marrow getZline.
+       //Os parametros serão FBase.Grid[x,y], FResolution, FCoords e FRads
+  {    for z:=0 to High(zline) do
         begin
         xyzpoint[2]:=z*FResolution+halfres;
-        if hash.IsInnerPoint(xyzpoint) then
+        //A grelha geral esta dividida em blocos de tamanho igual.
+        // Os 3 fors são executados para cada bloco
+           WriteLn(z);
+           WriteLn(xyzpoint[2]);
+        }
+
+        //Se o ponto obtido pela conversão da grelha está dentro dos limites
+        //do FRads então é ponto
+        //interno e o nó recebe o valor 1.
+        //0 c.c
+      //  WriteLn('ZLINE LENGTH',length(zline));
+     //   WriteLn(length(FCoords));
+          getZline(FBase.Grid[x,y],zline,FResolution,FCoords,FRads
+        ,length(zline),length(FCoords),length(FRads));
+     {   if hash.IsInnerPoint(xyzpoint) then
           zline[z]:=1
-        else zline[z]:=0;
-        FBase.Grid[x,y]:=IntegersToLine(zline);
-        end;
+        else zline[z]:=0; }
+
+        FBase.Grid[x,y]:=IntegersToLine(zLineExt);
+      {  end; }
       end;
     end;
+  //WriteLn('Block processed');
   hash.Free;
 end;
 

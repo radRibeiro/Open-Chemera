@@ -15,9 +15,6 @@
     <i18n>
       <EnableI18N LFM="False"/>
     </i18n>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <BuildModes Count="1" Active="Default">
       <Item1 Name="Default" Default="True"/>
     </BuildModes>
@@ -40,12 +37,12 @@
         <PackageName Value="LazUtils"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="40">
+    <Units Count="38">
       <Unit0>
         <Filename Value="bigger.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="5"/>
-        <CursorPos Y="113"/>
+        <TopLine Value="49"/>
+        <CursorPos X="44" Y="98"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -59,46 +56,47 @@
       <Unit2>
         <Filename Value="..\docking\linegrids.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="12"/>
-        <TopLine Value="69"/>
-        <CursorPos X="17" Y="84"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="440"/>
+        <CursorPos X="55" Y="451"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="..\..\sharedunits\utils\quicksort.pas"/>
         <EditorIndex Value="-1"/>
-        <UsageCount Value="89"/>
+        <UsageCount Value="79"/>
       </Unit3>
       <Unit4>
         <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="1019"/>
-        <CursorPos X="58" Y="753"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="150"/>
+        <CursorPos X="42" Y="63"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="42" Y="372"/>
+        <TopLine Value="13"/>
+        <CursorPos X="51" Y="37"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="162"/>
-        <CursorPos X="6" Y="184"/>
+        <TopLine Value="142"/>
+        <CursorPos X="5" Y="35"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="..\docking\dockdomains.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="9"/>
         <TopLine Value="485"/>
         <CursorPos X="30" Y="485"/>
         <UsageCount Value="204"/>
@@ -107,14 +105,15 @@
       <Unit8>
         <Filename Value="..\docking\bogie.pas"/>
         <EditorIndex Value="7"/>
-        <CursorPos X="5" Y="28"/>
+        <TopLine Value="243"/>
+        <CursorPos X="16" Y="85"/>
         <UsageCount Value="104"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="..\docking\dockconstraints.pas"/>
-        <EditorIndex Value="15"/>
-        <TopLine Value="178"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="180"/>
         <CursorPos X="75" Y="212"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -123,7 +122,7 @@
         <Filename Value="..\molecule\surface.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="71"/>
+        <TopLine Value="53"/>
         <CursorPos X="32" Y="85"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
@@ -132,8 +131,8 @@
         <Filename Value="..\docking\docktasks.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="975"/>
-        <CursorPos X="10" Y="1000"/>
+        <TopLine Value="266"/>
+        <CursorPos X="3" Y="159"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit11>
@@ -143,7 +142,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="631"/>
         <CursorPos X="17" Y="638"/>
-        <UsageCount Value="18"/>
+        <UsageCount Value="8"/>
       </Unit12>
       <Unit13>
         <Filename Value="..\docking\dockmanager.pas"/>
@@ -153,8 +152,8 @@
         <Filename Value="..\docking\biggerman.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="26"/>
-        <CursorPos X="3" Y="29"/>
+        <TopLine Value="135"/>
+        <CursorPos X="55" Y="166"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit14>
@@ -163,14 +162,14 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="31"/>
         <CursorPos X="22" Y="47"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="41"/>
       </Unit15>
       <Unit16>
         <Filename Value="..\base\oclconfiguration.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="19"/>
-        <CursorPos X="49" Y="32"/>
+        <TopLine Value="60"/>
+        <CursorPos X="34" Y="92"/>
         <UsageCount Value="210"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -195,21 +194,21 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="136"/>
         <CursorPos X="45" Y="150"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="36"/>
       </Unit19>
       <Unit20>
         <Filename Value="..\..\sharedunits\utils\stringutils.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="298"/>
         <CursorPos X="7" Y="314"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="36"/>
       </Unit20>
       <Unit21>
         <Filename Value="..\molecule\pdbparser.pas"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="74"/>
         <CursorPos X="69" Y="80"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="36"/>
       </Unit21>
       <Unit22>
         <Filename Value="C:\lazarus\packager\registration\fcllaz.pas"/>
@@ -225,9 +224,9 @@
       <Unit24>
         <Filename Value="..\molecule\molutils.pas"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="91"/>
+        <TopLine Value="96"/>
         <CursorPos X="15" Y="128"/>
-        <UsageCount Value="69"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit24>
       <Unit25>
@@ -235,7 +234,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="6"/>
         <CursorPos X="40" Y="22"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="21"/>
       </Unit25>
       <Unit26>
         <Filename Value="..\..\sharedunits\display\base3ddisplay.pas"/>
@@ -248,7 +247,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="43" Y="20"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="21"/>
       </Unit27>
       <Unit28>
         <Filename Value="..\sequence\alignment.pas"/>
@@ -269,29 +268,27 @@
       <Unit30>
         <Filename Value="..\docking\rotations.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="12"/>
         <TopLine Value="159"/>
         <CursorPos X="64" Y="182"/>
-        <UsageCount Value="172"/>
+        <UsageCount Value="208"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
         <Filename Value="..\..\..\..\..\usr\lib\lazarus\1.6\components\lazutils\lazutf8.pas"/>
         <UnitName Value="LazUTF8"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="179"/>
         <CursorPos X="3" Y="184"/>
-        <UsageCount Value="76"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="89"/>
       </Unit31>
       <Unit32>
         <Filename Value="..\..\..\..\..\usr\lib\lazarus\1.6\components\lazutils\fileutil.pas"/>
         <UnitName Value="FileUtil"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="202"/>
         <CursorPos X="84" Y="219"/>
-        <UsageCount Value="76"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="89"/>
       </Unit32>
       <Unit33>
         <Filename Value="..\..\..\lclextensions-0.6\lclextensions_package.lpk"/>
@@ -299,7 +296,7 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="16"/>
+        <UsageCount Value="6"/>
         <DefaultSyntaxHighlighter Value="XML"/>
       </Unit33>
       <Unit34>
@@ -310,161 +307,146 @@
         <DefaultSyntaxHighlighter Value="None"/>
       </Unit34>
       <Unit35>
-        <Filename Value="..\..\..\Desktop\2018-2019_Ricardo_Ribeiro\PascalToC++\hello_world\helloP.lps"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="6"/>
-        <CursorPos X="47" Y="16"/>
-        <UsageCount Value="10"/>
-        <DefaultSyntaxHighlighter Value="XML"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="..\..\..\..\..\usr\share\fpcsrc\3.0.0\rtl\inc\mathh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="84"/>
-        <CursorPos X="14" Y="101"/>
-        <UsageCount Value="10"/>
-      </Unit36>
-      <Unit37>
         <Filename Value="..\..\..\Desktop\2018-2019_Ricardo_Ribeiro\PascalToC++\arithmetic\expressions.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="15" Y="6"/>
-        <UsageCount Value="23"/>
-      </Unit37>
-      <Unit38>
+        <UsageCount Value="13"/>
+      </Unit35>
+      <Unit36>
         <Filename Value="..\..\..\Desktop\2018-2019_Ricardo_Ribeiro\PascalToC++\arithmetic\expressionsFLAT.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="10" Y="8"/>
-        <UsageCount Value="23"/>
-      </Unit38>
-      <Unit39>
+        <UsageCount Value="13"/>
+      </Unit36>
+      <Unit37>
         <Filename Value="..\..\sharedunits\utils\utilsflat.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="utilsFLAT"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="15"/>
-        <UsageCount Value="114"/>
-      </Unit39>
+        <UsageCount Value="211"/>
+      </Unit37>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="748" Column="16" TopLine="736"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="104" Column="12" TopLine="87"/>
       </Position1>
       <Position2>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="753" Column="21" TopLine="736"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="476" Column="16" TopLine="455"/>
       </Position2>
       <Position3>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="656" Column="10" TopLine="105"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="73" Column="49" TopLine="58"/>
       </Position3>
       <Position4>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="753" Column="12" TopLine="743"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="391" Column="59" TopLine="376"/>
       </Position4>
       <Position5>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="200" Column="44" TopLine="30"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="474" Column="11" TopLine="370"/>
       </Position5>
       <Position6>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="32" Column="5" TopLine="7"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="14" TopLine="55"/>
       </Position6>
       <Position7>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="135" Column="12" TopLine="118"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="389" Column="37" TopLine="247"/>
       </Position7>
       <Position8>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="43" Column="3" TopLine="29"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="32" TopLine="61"/>
       </Position8>
       <Position9>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="135" Column="12" TopLine="118"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="31" Column="42" TopLine="20"/>
       </Position9>
       <Position10>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="643" Column="3" TopLine="611"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="473" Column="39" TopLine="445"/>
       </Position10>
       <Position11>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="667" Column="52" TopLine="639"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="477" Column="64" TopLine="459"/>
       </Position11>
       <Position12>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="753" Column="11" TopLine="736"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="478" Column="9" TopLine="462"/>
       </Position12>
       <Position13>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="135" Column="12" TopLine="118"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="477" Column="28" TopLine="458"/>
       </Position13>
       <Position14>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="113" TopLine="79"/>
+        <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
+        <Caret Line="173" Column="11" TopLine="148"/>
       </Position14>
       <Position15>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="41" Column="3" TopLine="36"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="38" TopLine="55"/>
       </Position15>
       <Position16>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="753" Column="49" TopLine="736"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="477" Column="32" TopLine="467"/>
       </Position16>
       <Position17>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="753" Column="8" TopLine="738"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="480" Column="27" TopLine="461"/>
       </Position17>
       <Position18>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="667" Column="10" TopLine="35"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="56" TopLine="52"/>
       </Position18>
       <Position19>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="755" Column="39" TopLine="738"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="73" Column="63" TopLine="55"/>
       </Position19>
       <Position20>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="1026" Column="35" TopLine="1002"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="69" Column="24" TopLine="53"/>
       </Position20>
       <Position21>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="1027" Column="50" TopLine="1003"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="75" TopLine="55"/>
       </Position21>
       <Position22>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="1032" Column="50" TopLine="1008"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="69" Column="34" TopLine="53"/>
       </Position22>
       <Position23>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="1034" Column="50" TopLine="1010"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="486" Column="42" TopLine="458"/>
       </Position23>
       <Position24>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="1052" Column="35" TopLine="538"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="71" Column="109" TopLine="52"/>
       </Position24>
       <Position25>
-        <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
-        <Caret Line="667" Column="10" TopLine="655"/>
+        <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
+        <Caret Line="389" Column="56" TopLine="363"/>
       </Position25>
       <Position26>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="113" TopLine="79"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="479" Column="42" TopLine="457"/>
       </Position26>
       <Position27>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="105" Column="46" TopLine="38"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="452" Column="29" TopLine="468"/>
       </Position27>
       <Position28>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="102" Column="51" TopLine="79"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="486" Column="42" TopLine="466"/>
       </Position28>
       <Position29>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="113" TopLine="80"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="427" Column="3" TopLine="437"/>
       </Position29>
       <Position30>
-        <Filename Value="bigger.lpr"/>
-        <Caret Line="55" Column="19" TopLine="54"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="482" Column="52" TopLine="473"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

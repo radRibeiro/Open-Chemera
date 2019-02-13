@@ -165,8 +165,8 @@ function LongestCoord(c:TCoord):TFloat;
 // Marrow functions
 function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
   ;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;
-procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
-  ; fRads:TFloats;gridPoints:Integer
+procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+  ; fRads:TFloats;gridSize:Integer
   ;fPointsNR:Integer; fRadsNR:Integer)cdecl;
 
 implementation
@@ -179,8 +179,8 @@ uses Math;
 
 function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;external;
 
-procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
-  ; fRads:TFloats;gridPoints:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
+procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+  ; fRads:TFloats;gridSize:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
 
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin

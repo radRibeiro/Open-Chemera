@@ -101,6 +101,8 @@ type
   function Intersect(const Line1,Line2:TGridLine):TGridLine;overload;
   procedure Intersect(var Line:TGridLine; const NewMin,NewMax:Integer);
   procedure DisplaceLine(var Line:TGridLine;Displacement:Integer);
+ { function IntegersToGrid(const Ints: TIntegers; TGridSize:Integer;const Threshold:Integer=0; Limit1:Integer=-1;
+  Limit2: Integer=-1; Limit3: Integer=-1): TGridPlane;   }
   function IntegersToLine(const Ints:TIntegers;const Threshold:Integer=0;
               Limit1:Integer=-1;Limit2:Integer=-1):TGridLine;overload;
   procedure SetIntegersLine(const Line:TGridLine;var Ints:TIntegers; Val:Integer);
@@ -423,8 +425,10 @@ var
   halfres,maxrad:TFloat;
   top:TCoord;
   xyzpoint:TCoord;
-  x,y,z,j,k:Integer;
+  x,y,z,j,k,step,limitS,limitE:Integer;
   zline:TIntegers;
+  zlineExtended:TIntegers;
+
 
 
 begin
@@ -437,11 +441,13 @@ begin
   FCoords:=Add(FTransvec,FCoords);
   top:=Add(Max(FCoords),maxrad+1.5*FResolution);
   SetLength(FBase.Grid,Round(top[0]/FResolution),Round(top[1]/FResolution));
-
   SetLength(zline,Round(top[2]/FResolution));
+  SetLength(zlineExtended,length(zline)*length(zline)*length(zline));
   FBase.ZMax:=High(zline);
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
+  step:=length(zline);
+  Writeln('zline extended Length after kernel :', length(zlineExtended));
   //Os 3 fors seguintes fazem a conversão de um ponto da grelha (inteiros)
   //para tfloat assim como a determinação se o ponto é interno ou não
   //Para a versão do isInnerPoint que recebe a grelha poderá ser feita a
@@ -449,7 +455,25 @@ begin
   //que recebe um conjunto de indices de pontos em vez de um ponto.
   //Desta forma os 3 fors serão substituidos por duas chamadas de funções do marrow
   //  WriteLn('Grid points ',length(FBase.Grid[0,0]));
+  // O limite da grelha é calculado através das coordenadas de um ponto top, o zline tem topZ de comprimento
+  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords),length(FRads));
+ //  Writeln('zline Length after kernel :', length(zline));
+ //  WriteLn('Kernel Executed');
+  //FBase.Grid:= IntegersToGrid(zLineExt,length(zline));
+  //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
+  //
+  limitS:=0;
+  limitE :=FBase.ZMax;
   for x:=0 to High(FBase.Grid) do
+  begin
+       for y:=0 to High(FBase.Grid[x]) do
+       begin
+            FBase.Grid[x,y]:=IntegersToLine(zlineExtended,0,limitS,limitE);
+            limitS+=step;
+            limitE+=step;
+       end;
+  end;
+  {for x:=0 to High(FBase.Grid) do
     begin
    // xyzpoint[0]:=x*FResolution+halfres;
    //  WriteLn(x);
@@ -461,32 +485,27 @@ begin
     //   WriteLn(xyzpoint[1]);
        //Este for será eliminado: chamada para a função do marrow getZline.
        //Os parametros serão FBase.Grid[x,y], FResolution, FCoords e FRads
-  {    for z:=0 to High(zline) do
+       for z:=0 to High(zline) do
         begin
         xyzpoint[2]:=z*FResolution+halfres;
         //A grelha geral esta dividida em blocos de tamanho igual.
         // Os 3 fors são executados para cada bloco
-           WriteLn(z);
-           WriteLn(xyzpoint[2]);
-        }
-
         //Se o ponto obtido pela conversão da grelha está dentro dos limites
         //do FRads então é ponto
         //interno e o nó recebe o valor 1.
         //0 c.c
-      //  WriteLn('ZLINE LENGTH',length(zline));
-     //   WriteLn(length(FCoords));
-          getZline(FBase.Grid[x,y],zline,FResolution,FCoords,FRads
-        ,length(zline),length(FCoords),length(FRads));
-     {   if hash.IsInnerPoint(xyzpoint) then
+        if hash.IsInnerPoint(xyzpoint) then
           zline[z]:=1
-        else zline[z]:=0; }
+        else zline[z]:=0;
 
-        FBase.Grid[x,y]:=IntegersToLine(zLineExt);
-      {  end; }
+        end;
+         FBase.Grid[x,y]:=IntegersToLine(zLineExt);
+         // Implementar um IntegersToLine que afecte o FBase.Grid
+         // em vez de FBase.Grid[x,y]
+
       end;
     end;
-  //WriteLn('Block processed');
+        }
   hash.Free;
 end;
 

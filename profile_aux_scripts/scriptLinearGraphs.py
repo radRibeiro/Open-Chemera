@@ -133,7 +133,7 @@ functions = ["distance","isInnerPoint","setextremes","addModel"]
 overlaps = ["O0","O500","O1000","O2000","O200000"]
 speedupLabel = "Speedup"
 
-cubes = ["T512P216","T3375P1728","T19683P6859","T32678P19683"]
+cubes = ["T512P216","T3375P1728","T19683P6859","T32768P19683"]
 rotations = ["R100","R1000","R1500","R2000","R6000","R15000"]
 #"T512 P216"
             # O0 "T512 P216"

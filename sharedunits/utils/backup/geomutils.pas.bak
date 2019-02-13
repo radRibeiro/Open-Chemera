@@ -35,7 +35,6 @@ const
 
 var
    zLineExt : TIntegers; external name 'zlineExt';
-   test : Integer; external name 'test';
 function Quaternion(r,i,j,k:TFloat):TQuaternion;
 
 function Add(v1:TCoord;r:TFloat):TCoord;overload;
@@ -166,7 +165,7 @@ function LongestCoord(c:TCoord):TFloat;
 // Marrow functions
 function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
   ;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;
-procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
   ; fRads:TFloats;gridPoints:Integer
   ;fPointsNR:Integer; fRadsNR:Integer)cdecl;
 
@@ -180,7 +179,7 @@ uses Math;
 
 function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;external;
 
-procedure getZline(gridLine:TGridLine;zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
   ; fRads:TFloats;gridPoints:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
 
 function Quaternion(r, i, j, k: TFloat): TQuaternion;

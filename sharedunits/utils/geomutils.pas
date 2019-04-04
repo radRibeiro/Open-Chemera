@@ -162,25 +162,26 @@ function BottomCorner(c1,c2:TCoord):TCoord;
 function SmallestAxis(c:TCoord):Integer;
 function LongestCoord(c:TCoord):TFloat;
    }
+
 // Marrow functions
-function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
-  ;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;
-procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
-  ; fRads:TFloats;gridSize:Integer
-  ;fPointsNR:Integer; fRadsNR:Integer)cdecl;
+//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
+ // ;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;
+//procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+ // ; fRads:TFloats;gridSize:Integer
+  //;fPointsNR:Integer; fRadsNR:Integer)cdecl;
 
 implementation
 
 uses Math;
 //Invocar .so do marrow protein docking
-{$linklib libmarrow_protein_docking.so}
-{$linklib c}
-{$linklib stdc++}
+//{$linklib libmarrow_protein_docking.so}
+//{$linklib c}
+//{$linklib stdc++}
 
-function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;external;
+//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer; fRadsNR:Integer):Boolean;cdecl;external;
 
-procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
-  ; fRads:TFloats;gridSize:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
+//procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
+ // ; fRads:TFloats;gridSize:Integer;fPointsNR:Integer; fRadsNR:Integer)cdecl; external;
 
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin

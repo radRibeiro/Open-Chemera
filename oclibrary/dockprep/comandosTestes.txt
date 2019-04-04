@@ -1,0 +1,3 @@
+./dockprep -p 2hpr.pdb -t 1kkl.pdb -j jobEasy.xml
+./dockprep -p 1fwp.pdb -t 1ffw.pdb -j jobMed.xml
+./dockprep -p 1ilr.pdb -t 1ira.pdb -j jobHard.xml

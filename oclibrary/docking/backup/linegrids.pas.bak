@@ -194,6 +194,10 @@ begin
   SetLength(Result,Limit2-Limit1+1);
   curr:=-1;
   isin:=False;
+  //Result[curr,0] = Indices da grelha que são externos
+  //Result[curr,1] = Indices da grelha que são internos
+  //threshold = 0
+  //Ints = [1,1,1,1,1,1,1,1,1,1]
   for f:=Limit1 to Limit2 do
     begin
     if Ints[f]>Threshold then
@@ -447,7 +451,7 @@ begin
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
   step:=length(zline);
-  Writeln('zline extended Length after kernel :', length(zlineExtended));
+  //Writeln('zline extended Length after kernel :', length(zlineExtended));
   //Os 3 fors seguintes fazem a conversão de um ponto da grelha (inteiros)
   //para tfloat assim como a determinação se o ponto é interno ou não
   //Para a versão do isInnerPoint que recebe a grelha poderá ser feita a
@@ -456,13 +460,15 @@ begin
   //Desta forma os 3 fors serão substituidos por duas chamadas de funções do marrow
   //  WriteLn('Grid points ',length(FBase.Grid[0,0]));
   // O limite da grelha é calculado através das coordenadas de um ponto top, o zline tem topZ de comprimento
-  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords),length(FRads));
-   Writeln('zline Length after kernel :', length(zline));
+ // WriteLn(length(FCoords));
+ // WriteLn(length(zline));
+//  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords),length(FRads));
+ //  Writeln('zline Length after kernel :', length(zline));
  //  WriteLn('Kernel Executed');
   //FBase.Grid:= IntegersToGrid(zLineExt,length(zline));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
   //
-  limitS:=0;
+ { limitS:=0;
   limitE :=FBase.ZMax;
   for x:=0 to High(FBase.Grid) do
   begin
@@ -472,15 +478,15 @@ begin
             limitS+=step;
             limitE+=step;
        end;
-  end;
-  {for x:=0 to High(FBase.Grid) do
+  end;}
+  for x:=0 to High(FBase.Grid) do
     begin
    // xyzpoint[0]:=x*FResolution+halfres;
    //  WriteLn(x);
    //  WriteLn(xyzpoint[0]);
     for y:=0 to High(FBase.Grid[x]) do
       begin
-   //   xyzpoint[1]:=y*FResolution+halfres;
+      xyzpoint[1]:=y*FResolution+halfres;
     //   WriteLn(y);
     //   WriteLn(xyzpoint[1]);
        //Este for será eliminado: chamada para a função do marrow getZline.
@@ -499,7 +505,8 @@ begin
         else zline[z]:=0;
 
         end;
-         FBase.Grid[x,y]:=IntegersToLine(zLineExt);
+       //  FBase.Grid[x,y]:=IntegersToLine(zLineExt);
+         FBase.Grid[x,y]:=IntegersToLine(zline);
          // Implementar um IntegersToLine que afecte o FBase.Grid
          // em vez de FBase.Grid[x,y]
 

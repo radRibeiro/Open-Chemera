@@ -168,11 +168,12 @@ begin
   GridBounds(z1,z2,tmpc[2],FHighZ);
   //WriteLn('length of FRads ',length(FRads));
   //Substituir os loops por uma chamada do isInnerPoint do marrow
-  WriteLn('length of FRads ',length(FRads));
-  WriteLn('length of FPoints ',length(FPoints));
-  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
+ // WriteLn('length of FRads ',length(FRads));
+ // WriteLn('length of FPoints ',length(FPoints));
 
-  {for x:=x1 to x2 do
+ // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
+
+  for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
       begin
@@ -197,7 +198,7 @@ begin
       if Result then Break;
       end;
     if Result then Break;
-    end; }
+    end;
 
 end;
 

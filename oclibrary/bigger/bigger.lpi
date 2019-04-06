@@ -58,8 +58,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
-        <TopLine Value="487"/>
-        <CursorPos X="28" Y="508"/>
+        <TopLine Value="448"/>
+        <CursorPos X="83" Y="465"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -80,8 +80,8 @@
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="220"/>
-        <CursorPos X="4" Y="165"/>
+        <TopLine Value="162"/>
+        <CursorPos X="84" Y="181"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
@@ -89,7 +89,7 @@
         <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
         <EditorIndex Value="2"/>
         <TopLine Value="156"/>
-        <CursorPos X="2" Y="173"/>
+        <CursorPos X="58" Y="174"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
       </Unit6>

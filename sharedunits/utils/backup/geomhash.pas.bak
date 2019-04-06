@@ -170,6 +170,7 @@ begin
   //Substituir os loops por uma chamada do isInnerPoint do marrow
  // WriteLn('length of FRads ',length(FRads));
  // WriteLn('length of FPoints ',length(FPoints));
+
  // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
 
   for x:=x1 to x2 do

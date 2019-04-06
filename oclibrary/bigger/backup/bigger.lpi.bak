@@ -56,9 +56,10 @@
       <Unit2>
         <Filename Value="..\docking\linegrids.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="10"/>
-        <TopLine Value="489"/>
-        <CursorPos X="2" Y="511"/>
+        <TopLine Value="487"/>
+        <CursorPos X="28" Y="508"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -78,7 +79,6 @@
       <Unit5>
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <TopLine Value="220"/>
         <CursorPos X="4" Y="165"/>
@@ -316,7 +316,7 @@
         <UsageCount Value="211"/>
       </Unit35>
     </Units>
-    <JumpHistory Count="29" HistoryIndex="28">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <Caret Line="71" Column="109" TopLine="52"/>
@@ -433,6 +433,10 @@
         <Filename Value="bigger.lpr"/>
         <Caret Line="113" TopLine="81"/>
       </Position29>
+      <Position30>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="511" Column="2" TopLine="489"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

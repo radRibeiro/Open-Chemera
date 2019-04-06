@@ -171,7 +171,7 @@ begin
  // WriteLn('length of FRads ',length(FRads));
  // WriteLn('length of FPoints ',length(FPoints));
 
- // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
+ // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
 
   for x:=x1 to x2 do
     begin

@@ -512,7 +512,7 @@ begin
 
       end;
     end;
-        }
+
   hash.Free;
 end;
 

@@ -28,7 +28,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, SysUtils, geomhash, CustApp, linegrids, dockdomains, geomutils,
   basetypes, dockconstraints, bogie, surface, docktasks, biggerman,
-  oclconfiguration, alignment, rmsd, cgradient, base3ddisplay, progress,
+  oclconfiguration, alignment, rmsd, cgradient, {base3ddisplay, progress,}
 rotations;
 
 type
@@ -95,7 +95,7 @@ begin
   inherited Destroy;
 end;
 
-procedure TBigger.WriteHelp;               rr
+procedure TBigger.WriteHelp;
 begin
   { add your help code here }
   writeln('Usage: ',ExeName,' -h');
@@ -107,7 +107,7 @@ var
 {$R *.res}
 
 begin
-  Application:=TBigger.Create(nil);
+ // Application:=TBigger.Create(nil);
   Application.Run;
   Application.Free;
 end.

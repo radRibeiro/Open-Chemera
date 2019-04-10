@@ -462,7 +462,7 @@ begin
   // O limite da grelha é calculado através das coordenadas de um ponto top, o zline tem topZ de comprimento
  // WriteLn(length(FCoords));
  // WriteLn(length(zline));
-//  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords),length(FRads));
+//  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords));
  //  Writeln('zline Length after kernel :', length(zline));
  //  WriteLn('Kernel Executed');
   //FBase.Grid:= IntegersToGrid(zLineExt,length(zline));

@@ -509,7 +509,6 @@ begin
          FBase.Grid[x,y]:=IntegersToLine(zline);
          // Implementar um IntegersToLine que afecte o FBase.Grid
          // em vez de FBase.Grid[x,y]
-
       end;
     end;
 

@@ -70,8 +70,8 @@ function Simmetric(Coords:TCoords):TCoords;overload;
 //Marrow accelerated function for isInnerPoint
 
 
-function Distance(Vec1,Vec2:TCoord):TFloat;overload;
-
+//function Distance(Vec1,Vec2:TCoord):TFloat;overload;
+function Distance(Vec1, Vec2: TCoord): TFloat;cdecl;
 
 function Distance(Vecs1,Vecs2:TCoords):TFloats;overload;
 function Distance(Quart1,Quart2:TQuaternion):TFloat;overload; //euclidean
@@ -164,25 +164,26 @@ function LongestCoord(c:TCoord):TFloat;
    }
 
 // Marrow functions
+
 //function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
  // ;fPointsNR:Integer):Boolean;cdecl;
 //procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
  // ; fRads:TFloats;gridSize:Integer
   //;fPointsNR:Integer)cdecl;
 
+
 implementation
 
 uses Math;
 //Invocar .so do marrow protein docking
-//{$linklib libmarrow_protein_docking.so}
-//{$linklib c}
-//{$linklib stdc++}
-
+{$linklib libmarrow_protein_docking.so}
+{$linklib c}
+{$linklib stdc++}
 //function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
 
 //procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
  // ; fRads:TFloats;gridSize:Integer;fPointsNR:Integer)cdecl; external;
-
+function Distance(Vec1, Vec2: TCoord): TFloat;cdecl;external;
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin
   Result[0]:=r;
@@ -399,10 +400,10 @@ begin
 end;
 
 
-function Distance(Vec1, Vec2: TCoord): TFloat;
+{function Distance(Vec1, Vec2: TCoord): TFloat;
 begin
   Result:=Sqrt(Sqr(Vec1[0]-Vec2[0])+Sqr(Vec1[1]-Vec2[1])+Sqr(Vec1[2]-Vec2[2]));
-end;
+end;   }
 
 function Distance(Vecs1, Vecs2: TCoords): TFloats;
 

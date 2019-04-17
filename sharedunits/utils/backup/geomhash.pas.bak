@@ -153,6 +153,7 @@ function TGeomHasher.IsInnerPoint(C: TCoord): Boolean;
 var
   x,y,z,x1,x2,y1,y2,z1,z2,f,ix:Integer;
   tmpc:TCoord;
+  dist:TFloat;
  //Passar o apontador
  //
  //Código C++
@@ -171,7 +172,7 @@ begin
  // WriteLn('length of FRads ',length(FRads));
  // WriteLn('length of FPoints ',length(FPoints));
 
- // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints), length(FRads));
+ // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
 
   for x:=x1 to x2 do
     begin
@@ -182,11 +183,14 @@ begin
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
           ix:=FHashGrid[x,y,z,f];
-         // PrintTCoords(C);
-         // PrintTCoords(FPoints[ix]);
+        //   PrintTCoords(C);
+         //  PrintTCoords(FPoints[ix]);
           // WriteLn('length of FRads ',length(FRads));
-             //WriteLn('length of FPoints ',length(FPoints));
-          if Distance(C,FPoints[ix])<FRads[ix] then
+          //WriteLn('length of FPoints ',length(FPoints));
+
+          dist := Distance(C,FPoints[ix]);
+        //  WriteLn('distM ', dist);
+          if dist<FRads[ix] then
             begin
             Result:=True;
             Break;

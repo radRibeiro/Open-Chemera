@@ -82,7 +82,7 @@ type
      procedure ImportConstraintSets(var CSets:TConstraintSets);
      procedure ExportResults(var CSets:TConstraintSets);
      procedure BuildTargetGrid;
-     procedure BuildProbeGrid(Rotation:TQuaternion);
+     procedure BuildProbeGrid(Rotation:TQuaternion;gzlPrints:Integer);
      procedure BuildRotations(Job:TDockRun);
      function Dock(NumSteps:Integer=1;CalcStats:Boolean=False):Boolean;
       //Returns true if finished
@@ -253,17 +253,17 @@ end;
 
 procedure TDockManager.BuildTargetGrid;
 begin
-  FTargetGrid.BuildFromSpheres(FTargetCoords,FTargetRads);
+  FTargetGrid.BuildFromSpheres(20,FTargetCoords,FTargetRads);
 end;
 
-procedure TDockManager.BuildProbeGrid(Rotation: TQuaternion);
+procedure TDockManager.BuildProbeGrid(Rotation: TQuaternion;gzlPrints:Integer);
 
 var
   tmpcoords:TCoords;
 
 begin
   tmpcoords:=Rotate(FProbeCoords,Rotation);
-  FProbeGrid.BuildFromSpheres(tmpcoords,FProbeRads);
+  FProbeGrid.BuildFromSpheres(gzlPrints,tmpcoords,FProbeRads);
 end;
 
 procedure TDockManager.BuildRotations(Job: TDockRun);
@@ -283,8 +283,9 @@ var
   dockdomain:TDockDomain;
   f:Integer;
   ticktime:DWORD;
-
+  avgTimePrint:Integer;
 begin
+  avgTimePrint:=0;
   while (FCurrentRotation<High(FRotations)) and (NumSteps>0) do
     begin
     Inc(FCurrentRotation);
@@ -292,7 +293,7 @@ begin
 
     if CalcStats then ticktime:=GetTickCount;
 
-    BuildProbeGrid(FRotations[FCurrentRotation]);
+    BuildProbeGrid(FRotations[FCurrentRotation],avgTimePrint);
 
     if CalcStats then
       begin
@@ -328,6 +329,8 @@ begin
       dockdomain.Free;
       end;
     end;
+  //avgTimePrint:= avgTimePrint / length(FRotations);
+  //WriteLn(avgTimePrint, ' AVG GZL ms');
   Result:=FCurrentRotation=High(FRotations);
 end;
 

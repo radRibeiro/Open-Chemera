@@ -126,7 +126,6 @@ function AtomsInContact(const Atoms1, Atoms2: TAtoms; const Dist: TFloat): Boole
 
 var
   f,g:Integer;
-      h:biggerHandle;
 begin
   Result:=False;
   for f:=0 to High(Atoms1) do
@@ -276,7 +275,7 @@ begin
   hasher:=TGeomHasher.Create(ToCoords,Dist,tmprads);
   ix:=0;
   for f:=0 to High(FromCoords) do
-    if hasher.IsInnerPoint(FromCoords[f]) then
+    if hasher.IsInnerPoint(FromCoords[f],20) then
         begin
         Result[ix]:=f;
         Inc(ix);

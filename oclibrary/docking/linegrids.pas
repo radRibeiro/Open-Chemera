@@ -21,7 +21,7 @@ unit linegrids;
 interface
 
 uses
-  Classes, SysUtils, basetypes, geomutils, geomhash;
+  Classes, SysUtils, basetypes, geomutils, geomhash,dateutils;
 
 type
 
@@ -81,7 +81,7 @@ type
         //incrementally changes Y to next value and updates
         //neighbour surf and core vals.
 
-      procedure BuildBaseGrid;      //translates structure and creates FBase
+      procedure BuildBaseGrid(gzlPrints:Integer);      //translates structure and creates FBase
       procedure BuildSurfCoreGrids; //builds from Base grid
 
     public
@@ -91,7 +91,7 @@ type
       property Resolution:TFloat read FResolution;
       property TransVec:TCoord read FTransVec;
       constructor Create(AResolution:TFloat);
-      procedure BuildFromSpheres(Coords:TCoords;Rads:TFloats;
+      procedure BuildFromSpheres(gzlPrints:Integer;Coords:TCoords;Rads:TFloats;
                 CoreCuts:TCoords=nil;CoreCutRads:TFloats=nil);
 
     end;
@@ -422,23 +422,22 @@ begin
 
 end;
 
-procedure TDockingGrid.BuildBaseGrid;
+procedure TDockingGrid.BuildBaseGrid(gzlPrints:Integer);
 
 var
   hash:TGeomHasher;
   halfres,maxrad:TFloat;
   top:TCoord;
   xyzpoint:TCoord;
-  x,y,z,j,k,step,limitS,limitE:Integer;
+  x,y,z,j,k,index,step,limitS,limitE:Integer;
   zline:TIntegers;
   zlineExtended:TIntegers;
-
-
+  gridM: array of array [0..2] of Integer;
+  startGZL,stopGZL:TDateTime;
 
 begin
   //Adjust coordinates
   maxrad:=Max(Max(FRads),FResolution);
-
   //Translate and size guaranteeing one layer of empty grid cells
   FTransVec:=Min(FCoords);
   FTransVec:=Add(Simmetric(FTransVec),maxrad+FResolution);
@@ -451,23 +450,22 @@ begin
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
   step:=length(zline);
-  //Writeln('zline extended Length after kernel :', length(zlineExtended));
-  //Os 3 fors seguintes fazem a conversão de um ponto da grelha (inteiros)
-  //para tfloat assim como a determinação se o ponto é interno ou não
-  //Para a versão do isInnerPoint que recebe a grelha poderá ser feita a
-  //conversão de todos os pontos da grelha no marrow e chamar o isInnerPoint
-  //que recebe um conjunto de indices de pontos em vez de um ponto.
-  //Desta forma os 3 fors serão substituidos por duas chamadas de funções do marrow
-  //  WriteLn('Grid points ',length(FBase.Grid[0,0]));
-  // O limite da grelha é calculado através das coordenadas de um ponto top, o zline tem topZ de comprimento
- // WriteLn(length(FCoords));
- // WriteLn(length(zline));
+
+  startGZL:=Now;
+   //===================Solução Marrow====================
+ {  index:=0;
+   for i:=0 to High(FBase.Grid) do
+     begin
+      for j:=0 to High(FBase.Grid[i]) do
+      begin
+           for k:=0 to High(zline) do
+             gridM[index][0] = i*FResolution+halfres;
+             gridM[index][1] = j*FResolution+halfres;
+             gridM[index][2] = k*FResolution+halfres ;
+      end;
+     end; }
 //  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords));
- //  Writeln('zline Length after kernel :', length(zline));
- //  WriteLn('Kernel Executed');
-  //FBase.Grid:= IntegersToGrid(zLineExt,length(zline));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
-  //
  { limitS:=0;
   limitE :=FBase.ZMax;
   for x:=0 to High(FBase.Grid) do
@@ -479,6 +477,7 @@ begin
             limitE+=step;
        end;
   end;}
+  //===================Solução original====================
   for x:=0 to High(FBase.Grid) do
     begin
    // xyzpoint[0]:=x*FResolution+halfres;
@@ -503,7 +502,6 @@ begin
         if hash.IsInnerPoint(xyzpoint) then
           zline[z]:=1
         else zline[z]:=0;
-
         end;
        //  FBase.Grid[x,y]:=IntegersToLine(zLineExt);
          FBase.Grid[x,y]:=IntegersToLine(zline);
@@ -511,7 +509,11 @@ begin
          // em vez de FBase.Grid[x,y]
       end;
     end;
-
+    stopGZL:=Now;
+   if gzlPrints <= 1 then
+    begin
+      WriteLn(FormatDateTime('hh.nn.ss.zzz', stopGZL-startGZL), ' GZL ms');
+    end;
   hash.Free;
 end;
 
@@ -546,7 +548,7 @@ begin
   FResolution:=AResolution;
 end;
 
-procedure TDockingGrid.BuildFromSpheres(Coords: TCoords; Rads: TFloats;
+procedure TDockingGrid.BuildFromSpheres(gzlPrints:Integer; Coords: TCoords; Rads: TFloats;
   CoreCuts: TCoords; CoreCutRads: TFloats);
 
 begin
@@ -555,7 +557,7 @@ begin
   FRads:=Copy(Rads,0,Length(Rads));
   FCoreCutCoords:=Copy(CoreCuts,0,Length(CoreCuts));
   FCoreCutRads:=Copy(CoreCutRads,0,Length(CoreCutRads));
-  BuildBaseGrid;
+  BuildBaseGrid(gzlPrints);
   BuildSurfCoreGrids;
   ComputeShapeStats(FSurf);
   ComputeShapeStats(FCore);

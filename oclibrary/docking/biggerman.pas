@@ -288,7 +288,7 @@ begin
              Resolution);
     dockman.ImportConstraintSets(FJobs[Ix].ConstraintSets);
     dockman.BuildTargetGrid;
-    dockman.BuildProbeGrid(IdentityQuaternion);
+    dockman.BuildProbeGrid(IdentityQuaternion,20);
     sl.Add(IntToStr(ix));
     sl.Add(':'+TargetFile);
     DescribeGrid(dockman.TargetGrid);

@@ -396,7 +396,7 @@ begin
   SetLength(Result,Length(Coords));
   for f:=0 to High(Coords) do Result[f]:=Simmetric(Coords[f]);
 end;
-function Distance(Vec1, Vec2: TCoord): TFloat;cdecl;external;
+//function Distance(Vec1, Vec2: TCoord): TFloat;cdecl;external;
 
 function Distance(Vec1, Vec2: TCoord): TFloat;
 begin

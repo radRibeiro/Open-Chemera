@@ -171,9 +171,9 @@ begin
   //Substituir os loops por uma chamada do isInnerPoint do marrow
  // WriteLn('length of FRads ',length(FRads));
  // WriteLn('length of FPoints ',length(FPoints));
-
-  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
-  {
+ //=========Solução Marrow========================/
+ // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
+ //=========Solução Sequencial========================/
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
@@ -190,7 +190,7 @@ begin
 
           dist := Distance(C,FPoints[ix]);
         //  WriteLn('distM ', dist);
-          if dist<FRads[ix] then
+          if dist< FRads[ix] then
             begin
             Result:=True;
             Break;
@@ -202,8 +202,7 @@ begin
       if Result then Break;
       end;
     if Result then Break;
-    end;    }
-
+    end;
 end;
 
 end.

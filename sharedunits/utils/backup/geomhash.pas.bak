@@ -17,7 +17,7 @@ unit geomhash;
 interface
 
 uses
-  Classes, SysUtils, basetypes, geomutils,dateutils;
+  Classes, SysUtils, basetypes, geomutils;
 
 type
 
@@ -174,7 +174,6 @@ begin
  //=========Solução Marrow========================/
  // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
  //=========Solução Sequencial========================/
-
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do

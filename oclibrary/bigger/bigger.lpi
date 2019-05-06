@@ -57,8 +57,8 @@
         <Filename Value="..\docking\linegrids.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="11"/>
-        <TopLine Value="485"/>
-        <CursorPos X="21" Y="513"/>
+        <TopLine Value="487"/>
+        <CursorPos X="66" Y="425"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -70,7 +70,7 @@
       <Unit4>
         <Filename Value="..\..\sharedunits\general\basetypes.pas"/>
         <EditorIndex Value="15"/>
-        <TopLine Value="7"/>
+        <TopLine Value="17"/>
         <CursorPos X="24" Y="49"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -79,15 +79,17 @@
         <Filename Value="..\..\sharedunits\utils\geomutils.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="144"/>
-        <CursorPos X="3" Y="167"/>
+        <TopLine Value="162"/>
+        <CursorPos X="10" Y="166"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
-        <CursorPos X="42" Y="20"/>
+        <TopLine Value="149"/>
+        <CursorPos X="17" Y="175"/>
         <UsageCount Value="103"/>
         <Loaded Value="True"/>
       </Unit6>
@@ -102,10 +104,9 @@
       </Unit7>
       <Unit8>
         <Filename Value="..\docking\bogie.pas"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <TopLine Value="308"/>
-        <CursorPos X="22" Y="329"/>
+        <TopLine Value="71"/>
+        <CursorPos X="16" Y="85"/>
         <UsageCount Value="104"/>
         <Loaded Value="True"/>
       </Unit8>
@@ -121,7 +122,7 @@
         <Filename Value="..\molecule\surface.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="78"/>
+        <TopLine Value="77"/>
         <CursorPos X="33" Y="96"/>
         <UsageCount Value="204"/>
         <Loaded Value="True"/>
@@ -151,8 +152,8 @@
         <Filename Value="..\docking\biggerman.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="8"/>
-        <TopLine Value="97"/>
-        <CursorPos X="8" Y="125"/>
+        <TopLine Value="129"/>
+        <CursorPos X="36" Y="126"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit14>
@@ -212,7 +213,7 @@
       <Unit22>
         <Filename Value="..\molecule\molutils.pas"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="256"/>
+        <TopLine Value="255"/>
         <CursorPos X="45" Y="267"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -354,7 +355,6 @@
       <Unit42>
         <Filename Value="..\..\..\..\..\usr\share\fpcsrc\3.0.0\packages\rtl-objpas\src\inc\dateutil.inc"/>
         <EditorIndex Value="12"/>
-        <TopLine Value="133"/>
         <UsageCount Value="13"/>
         <Loaded Value="True"/>
       </Unit42>
@@ -390,94 +390,94 @@
       </Position7>
       <Position8>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="24" Column="61" TopLine="494"/>
+        <Caret Line="26" Column="52" TopLine="8"/>
       </Position8>
       <Position9>
-        <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="26" Column="52" TopLine="8"/>
+        <Filename Value="..\..\..\..\..\usr\share\fpcsrc\3.0.0\packages\rtl-objpas\src\inc\dateutil.pp"/>
       </Position9>
       <Position10>
-        <Filename Value="..\..\..\..\..\usr\share\fpcsrc\3.0.0\packages\rtl-objpas\src\inc\dateutil.pp"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="432" Column="37" TopLine="415"/>
       </Position10>
       <Position11>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="432" Column="37" TopLine="415"/>
+        <Caret Line="513" Column="21" TopLine="474"/>
       </Position11>
       <Position12>
-        <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="513" Column="21" TopLine="474"/>
+        <Filename Value="..\docking\bogie.pas"/>
+        <Caret Line="287" Column="4" TopLine="287"/>
       </Position12>
       <Position13>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="287" Column="4" TopLine="287"/>
+        <Caret Line="284" Column="5" TopLine="277"/>
       </Position13>
       <Position14>
-        <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="284" Column="5" TopLine="277"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="514" Column="78" TopLine="497"/>
       </Position14>
       <Position15>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="514" Column="78" TopLine="497"/>
+        <Caret Line="502" Column="23" TopLine="488"/>
       </Position15>
       <Position16>
-        <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="502" Column="23" TopLine="488"/>
+        <Filename Value="..\docking\bogie.pas"/>
+        <Caret Line="333" Column="34" TopLine="308"/>
       </Position16>
       <Position17>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="333" Column="34" TopLine="308"/>
+        <Caret Line="286" Column="23" TopLine="274"/>
       </Position17>
       <Position18>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="286" Column="23" TopLine="274"/>
+        <Caret Line="266" Column="40" TopLine="250"/>
       </Position18>
       <Position19>
-        <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="259" Column="77" TopLine="286"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="94" Column="50" TopLine="79"/>
       </Position19>
       <Position20>
-        <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="266" Column="40" TopLine="250"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="561" Column="28" TopLine="531"/>
       </Position20>
       <Position21>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="94" Column="50" TopLine="79"/>
+        <Caret Line="556" Column="26" TopLine="536"/>
       </Position21>
       <Position22>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="561" Column="28" TopLine="531"/>
+        <Caret Line="84" Column="47" TopLine="70"/>
       </Position22>
       <Position23>
         <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="556" Column="26" TopLine="536"/>
+        <Caret Line="513" Column="60" TopLine="499"/>
       </Position23>
       <Position24>
-        <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="84" Column="47" TopLine="70"/>
+        <Filename Value="..\docking\bogie.pas"/>
+        <Caret Line="333" Column="38" TopLine="307"/>
       </Position24>
       <Position25>
-        <Filename Value="..\docking\linegrids.pas"/>
-        <Caret Line="513" Column="60" TopLine="499"/>
+        <Filename Value="..\docking\bogie.pas"/>
+        <Caret Line="259" Column="24" TopLine="243"/>
       </Position25>
       <Position26>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="333" Column="38" TopLine="307"/>
+        <Caret Line="85" Column="69" TopLine="71"/>
       </Position26>
       <Position27>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="259" Column="24" TopLine="243"/>
+        <Caret Line="286" Column="23" TopLine="278"/>
       </Position27>
       <Position28>
         <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="85" Column="69" TopLine="71"/>
+        <Caret Line="297" Column="67" TopLine="277"/>
       </Position28>
       <Position29>
-        <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="286" Column="23" TopLine="278"/>
+        <Filename Value="..\docking\linegrids.pas"/>
+        <Caret Line="425" Column="66" TopLine="487"/>
       </Position29>
       <Position30>
-        <Filename Value="..\docking\bogie.pas"/>
-        <Caret Line="297" Column="5" TopLine="277"/>
+        <Filename Value="..\..\sharedunits\utils\geomhash.pas"/>
+        <Caret Line="175" Column="17" TopLine="165"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>

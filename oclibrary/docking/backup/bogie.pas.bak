@@ -329,8 +329,7 @@ begin
       dockdomain.Free;
       end;
     end;
-  avgTimePrint:= avgTimePrint / length(FRotations);
-  WriteLn(avgTimePrint, ' AVG GZL ms');
+
   Result:=FCurrentRotation=High(FRotations);
 end;
 

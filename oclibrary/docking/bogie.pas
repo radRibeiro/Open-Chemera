@@ -286,6 +286,7 @@ var
   avgTimePrint:Integer;
 begin
   avgTimePrint:=0;
+
   while (FCurrentRotation<High(FRotations)) and (NumSteps>0) do
     begin
     Inc(FCurrentRotation);
@@ -329,8 +330,7 @@ begin
       dockdomain.Free;
       end;
     end;
-  //avgTimePrint:= avgTimePrint / length(FRotations);
-  //WriteLn(avgTimePrint, ' AVG GZL ms');
+
   Result:=FCurrentRotation=High(FRotations);
 end;
 

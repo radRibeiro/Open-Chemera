@@ -163,8 +163,8 @@ function LongestCoord(c:TCoord):TFloat;
    }
 
 // Marrow functions
-//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
-// ;fPointsNR:Integer):Boolean;cdecl;
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
+ ;fPointsNR:Integer):Boolean;cdecl;
 //procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
  // ; fRads:TFloats;gridSize:Integer
   //;fPointsNR:Integer)cdecl;
@@ -174,10 +174,10 @@ implementation
 
 uses Math;
 //Invocar .so do marrow protein docking
-//{$linklib libmarrow_protein_docking.so}
-//{$linklib c}
-//{$linklib stdc++}
-//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
+{$linklib libmarrow_protein_docking.so}
+{$linklib c}
+{$linklib stdc++}
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
 
 //procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
  // ; fRads:TFloats;gridSize:Integer;fPointsNR:Integer)cdecl; external;

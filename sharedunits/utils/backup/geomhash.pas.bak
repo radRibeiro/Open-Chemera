@@ -154,26 +154,18 @@ var
   x,y,z,x1,x2,y1,y2,z1,z2,f,ix:Integer;
   tmpc:TCoord;
   dist:TFloat;
- //Passar o apontador
- //
- //Código C++
- //typedef
- // using TCoord = marrow::array <double,3>
- //como mapear um array de n dimensões num array
- //void dist(double * pointer ){TCoord c (p); ...}
 begin
   tmpc:=Multiply(Add(C,FShiftToGrid),FInvGridStep);
   Result:=False;
   GridBounds(x1,x2,tmpc[0],FHighX);
   GridBounds(y1,y2,tmpc[1],FHighY);
   GridBounds(z1,z2,tmpc[2],FHighZ);
-  //WriteLn('length of FRads ',length(FRads));
   //Substituir os loops por uma chamada do isInnerPoint do marrow
- // WriteLn('length of FRads ',length(FRads));
  // WriteLn('length of FPoints ',length(FPoints));
  //=========Solução Marrow========================/
- // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
- //=========Solução Sequencial========================/
+  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
+ //=========Solução Original========================/
+  {
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
@@ -183,19 +175,12 @@ begin
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
           ix:=FHashGrid[x,y,z,f];
-        //   PrintTCoords(C);
-         //  PrintTCoords(FPoints[ix]);
-          // WriteLn('length of FRads ',length(FRads));
-          //WriteLn('length of FPoints ',length(FPoints));
-
           dist := Distance(C,FPoints[ix]);
-        //  WriteLn('distM ', dist);
           if dist< FRads[ix] then
             begin
             Result:=True;
             Break;
             end;
-
           end;
         if Result then Break;
         end;
@@ -203,6 +188,7 @@ begin
       end;
     if Result then Break;
     end;
+  }
 end;
 
 end.

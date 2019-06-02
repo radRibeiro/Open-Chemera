@@ -36,7 +36,7 @@ const
 var
    zLineExt : TIntegers; external name 'zlineExt';
 function Quaternion(r,i,j,k:TFloat):TQuaternion;
-
+function Dmod(d1,d2:Double):Double;
 function Add(v1:TCoord;r:TFloat):TCoord;overload;
 function Add(v1,v2:TCoord):TCoord;overload;
 function Add(vec:TCoord;Coords:TCoords):TCoords;overload;
@@ -165,6 +165,7 @@ function LongestCoord(c:TCoord):TFloat;
 // Marrow functions
 //function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
 // ;fPointsNR:Integer):Boolean;cdecl;
+function getTotalDeviceFreeMem():Double;cdecl;
 procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
   ; fRads:TFloats;gridSize:Integer
   ;fPointsNR:Integer)cdecl;
@@ -178,7 +179,7 @@ uses Math;
 {$linklib c}
 {$linklib stdc++}
 //function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
-
+function getTotalDeviceFreeMem():Double;cdecl;external;
 procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords; fRads:TFloats;gridSize:Integer;fPointsNR:Integer)cdecl; external;
 
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
@@ -226,7 +227,10 @@ begin
   for f:=0 to High(Result) do
     Result[f]:=Floats[f]+Float;
 end;
-
+function Dmod(d1,d2:Double):Double;
+ begin
+     Result:= d1-d2 * trunc(d1/d2);
+ end;
 function Add(Coords: TCoords; Floats: TFloats): TCoords;
 
 var f:Integer;

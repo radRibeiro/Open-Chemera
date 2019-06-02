@@ -155,6 +155,7 @@ var
   tmpc:TCoord;
   dist:TFloat;
 begin
+{$DEFINE ISPM}
   tmpc:=Multiply(Add(C,FShiftToGrid),FInvGridStep);
   Result:=False;
   GridBounds(x1,x2,tmpc[0],FHighX);
@@ -162,10 +163,11 @@ begin
   GridBounds(z1,z2,tmpc[2],FHighZ);
   //Substituir os loops por uma chamada do isInnerPoint do marrow
  // WriteLn('length of FPoints ',length(FPoints));
+ {$IFDEF ISPM}
  //=========Solução Marrow========================/
  // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
  //=========Solução Original========================/
-  {
+ {$ELSE}
   for x:=x1 to x2 do
     begin
     for y:=y1 to y2 do
@@ -188,7 +190,7 @@ begin
       end;
     if Result then Break;
     end;
-  }
+  {$ENDIF}
 end;
 
 end.

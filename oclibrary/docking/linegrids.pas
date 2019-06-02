@@ -422,6 +422,18 @@ begin
 
 end;
 
+function getNeededMemoryInBytes(zlineElems:Integer; fpointsNR:Integer):Double;
+var
+  nSegments:Integer;
+begin
+     nSegments:=zlineElems*zlineElems*zlineElems;
+     Result:= 4 *fpointsNR +
+            + 4 * nSegments+
+            + 4 * 3 * nSegments+
+            + 4 * 3 * nSegments * fpointsNR+
+            + 4 * nSegments * fpointsNR+
+            + nSegments*fpointsNR;
+  end;
 procedure TDockingGrid.BuildBaseGrid(gzlPrints:Integer);
 
 var
@@ -430,8 +442,17 @@ var
   top:TCoord;
   xyzpoint:TCoord;
   x,y,z,i,j,k,index,step,limitS,limitE:Integer;
+
+  nrPartitions,gridSizeP,nRowsP,nSegsP:Integer;
+  restGridSizeP,restRows,nRemSegments:Integer;
+  sFCoords,FCoordsRem:TCoords;
+  fRadsRem,fRadsS:TFloats;
+  totalNeededMemory, totalFreeMemory:Double;
+
   zline:TIntegers;
-  zlineExtended:TIntegers;
+  zlineExtended,zlineS,zlineRem:TIntegers;
+
+  remaining:Boolean;
   gridM: array of array [0..2] of Integer;
   startGZL,stopGZL:TDateTime;
 
@@ -452,23 +473,49 @@ begin
   step:=length(zline);
 
   startGZL:=Now;
+  {$DEFINE GETZLINE}
+  {$IFDEF GETZLINE}
 //  ===================Solução Marrow====================
-  { index:=0;
-   for i:=0 to High(FBase.Grid) do
-   begin
-      for j:=0 to High(FBase.Grid[i]) do
+     totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
+     totalFreeMemory := getTotalDeviceFreeMem();
+    nrPartitions :=  round(totalNeededMemory/totalFreeMemory);
+    if nrPartitions > 0 then
       begin
-           for k:=0 to High(zline) do
-             gridM[index][0] = i*FResolution+halfres;
-             gridM[index][1] = j*FResolution+halfres;
-             gridM[index][2] = k*FResolution+halfres ;
-      end;
-   end; }
-
-  getZline(zlineExtended,FResolution,FCoords,FRads,length(zline),length(FCoords));
-
+         remaining := Dmod(totalNeededMemory,totalFreeMemory) <> 0.0;
+         gridSizeP := length(zline) div nrPartitions;
+         nRowsP := length(FCoords) div nrPartitions;
+         nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
+          SetLength(zlineS,nSegsP);
+          SetLength(sFCoords,3*nRowsP);
+          SetLength(fRadsS,nRowsP);
+        for i := 0 to nrPartitions do
+        begin
+             //Cópias aqui e invocação do getZLine para cada partição completa
+           zlineS:=Copy(zlineExtended,i*(nSegsP-1),Length(zlineS));
+            sFCoords:=Copy(FCoords,i*(3*nRowsP-1),Length(sFCoords));
+             fRadsS:=Copy(FRads,i*(3*nRowsP-1),Length(fRadsS));
+             getZline(zlineS,FResolution,sFCoords,fRadsS,gridSizeP,nRowsP);
+               zlineExtended:= Copy(zlineS,i*(nSegsP-1),Length(zlineS));
+        end;
+        if remaining then
+          begin
+         // A last call to getZline with the remaining unprocessed elements
+             restGridSizeP := length(zline) - gridSizeP*nrPartitions;
+             restRows := length(FCoords)-nRowsP*nrPartitions;
+             nRemSegments:= restGridSizeP*restGridSizeP*restGridSizeP;
+              SetLength(FCoordsRem,3*restRows);
+              SetLength(zlineRem,nRemSegments);
+              SetLength(fRadsRem,restRows);
+              //Cópias aqui e invocação
+              zlineRem:=Copy(zlineExtended,restGridSizeP-1,Length(zlineRem));
+              FCoordsRem:=Copy(FCoords,3*restRows-1,Length(FCoordsRem));
+              fRadsRem:=Copy(FRads,restRows-1,Length(fRadsRem));
+            getZline(zlineRem,FResolution,FCoordsRem,fRadsRem,restGridSizeP,restRows);
+            zlineExtended:= Copy(zlineRem,restGridSizeP-1,Length(zlineRem));
+          end
+        end
+    else getZline(zlineExtended, FResolution, FCoords, FRads, length(zline), length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
-
     limitS:=0;
     limitE :=FBase.ZMax;
     for x:=0 to High(FBase.Grid) do
@@ -480,9 +527,9 @@ begin
               limitE+=step;
          end;
     end;
-
+ {$ELSE}
 //  ===================Solução original====================
- { for x:=0 to High(FBase.Grid) do
+  for x:=0 to High(FBase.Grid) do
     begin
      xyzpoint[0]:=x*FResolution+halfres;
     for y:=0 to High(FBase.Grid[x]) do
@@ -497,7 +544,8 @@ begin
         end;
          FBase.Grid[x,y]:=IntegersToLine(zline);
       end;
-    end;  }
+    end;
+ {$ENDIF}
   // PRINT PARA DETERMINAR O TEMPO DE EXECUCAO DA ZONA A PARALELIZAR
   stopGZL:=Now;
    if gzlPrints <= 1 then

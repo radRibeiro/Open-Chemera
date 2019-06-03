@@ -478,42 +478,46 @@ begin
 //  ===================Solução Marrow====================
      totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
      totalFreeMemory := getTotalDeviceFreeMem();
-    nrPartitions :=  round(totalNeededMemory/totalFreeMemory);
+    nrPartitions :=  trunc(totalNeededMemory/totalFreeMemory);
     if nrPartitions > 0 then
       begin
-         remaining := Dmod(totalNeededMemory,totalFreeMemory) <> 0.0;
-         gridSizeP := length(zline) div nrPartitions;
+        // remaining := round(Dmod(totalNeededMemory,totalFreeMemory)) <> 0;
+         gridSizeP := trunc(exp((1/3)*ln(length(zline) div nrPartitions)));
          nRowsP := length(FCoords) div nrPartitions;
          nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
           SetLength(zlineS,nSegsP);
-          SetLength(sFCoords,3*nRowsP);
+          SetLength(sFCoords,nRowsP);
           SetLength(fRadsS,nRowsP);
+          if nrPartitions = 1 then
+            begin
+                nrPartitions := nrPartitions +1;
+            end;
         for i := 0 to nrPartitions do
         begin
              //Cópias aqui e invocação do getZLine para cada partição completa
-           zlineS:=Copy(zlineExtended,i*(nSegsP-1),Length(zlineS));
-            sFCoords:=Copy(FCoords,i*(3*nRowsP-1),Length(sFCoords));
-             fRadsS:=Copy(FRads,i*(3*nRowsP-1),Length(fRadsS));
+           zlineS:=Copy(zlineExtended,i*(nSegsP),Length(zlineS));
+            sFCoords:=Copy(FCoords,i*(nRowsP),Length(sFCoords));
+             fRadsS:=Copy(FRads,i*(nRowsP),Length(fRadsS));
              getZline(zlineS,FResolution,sFCoords,fRadsS,gridSizeP,nRowsP);
-               zlineExtended:= Copy(zlineS,i*(nSegsP-1),Length(zlineS));
+               zlineExtended:= Copy(zlineS,i*(nSegsP),Length(zlineS));
         end;
-        if remaining then
+       { if remaining then
           begin
          // A last call to getZline with the remaining unprocessed elements
              restGridSizeP := length(zline) - gridSizeP*nrPartitions;
              restRows := length(FCoords)-nRowsP*nrPartitions;
              nRemSegments:= restGridSizeP*restGridSizeP*restGridSizeP;
-              SetLength(FCoordsRem,3*restRows);
+              SetLength(FCoordsRem,restRows);
               SetLength(zlineRem,nRemSegments);
               SetLength(fRadsRem,restRows);
               //Cópias aqui e invocação
-              zlineRem:=Copy(zlineExtended,restGridSizeP-1,Length(zlineRem));
-              FCoordsRem:=Copy(FCoords,3*restRows-1,Length(FCoordsRem));
-              fRadsRem:=Copy(FRads,restRows-1,Length(fRadsRem));
+              zlineRem:=Copy(zlineExtended,restGridSizeP,Length(zlineRem));
+              FCoordsRem:=Copy(FCoords,restRows,Length(FCoordsRem));
+              fRadsRem:=Copy(FRads,restRows,Length(fRadsRem));
             getZline(zlineRem,FResolution,FCoordsRem,fRadsRem,restGridSizeP,restRows);
-            zlineExtended:= Copy(zlineRem,restGridSizeP-1,Length(zlineRem));
-          end
-        end
+            zlineExtended:= Copy(zlineRem,restGridSizeP,Length(zlineRem));
+          end}
+    end
     else getZline(zlineExtended, FResolution, FCoords, FRads, length(zline), length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
     limitS:=0;

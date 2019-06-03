@@ -194,12 +194,13 @@ begin
   SetLength(Result,Limit2-Limit1+1);
   curr:=-1;
   isin:=False;
-  //Result[curr,0] = Indices da grelha que são externos
-  //Result[curr,1] = Indices da grelha que são internos
   //threshold = 0
-  //Ints = [1,1,1,1,1,1,1,1,1,1]
   for f:=Limit1 to Limit2 do
     begin
+    if Ints[f]> 1 then
+     begin
+     Ints[f]:=0;
+     end;
     if Ints[f]>Threshold then
       begin
         if not isin then
@@ -494,7 +495,6 @@ begin
            begin
                for i := 0 to nrPartitions -1 do
                begin
-             //Cópias aqui e invocação do getZLine para cada partição completa
                 zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
                 getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
                 zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
@@ -504,7 +504,6 @@ begin
          begin
         for i := 0 to nrPartitions do
         begin
-        //Cópias aqui e invocação do getZLine para cada partição completa
           zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
           getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
           zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
@@ -512,14 +511,13 @@ begin
         end;
         if remaining then
           begin
-         // A last call to getZline with the remaining unprocessed elements
-             restGridSizeP := trunc(exp((1/3)*ln(nSegs-nrPartitions*nSegsP)));
-             nRemSegments:= restGridSizeP*restGridSizeP*restGridSizeP;
+         // A last call to getZline with the remaining unprocessed zline elements
+              restGridSizeP := trunc(exp((1/3)*ln(nSegs-nrPartitions*nSegsP)));
+              nRemSegments := restGridSizeP*restGridSizeP*restGridSizeP;
               SetLength(zlineRem,nRemSegments);
-              //Cópias aqui e invocação
-              zlineRem:=Copy(zlineExtended,restGridSizeP,Length(zlineRem));
-            getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,length(FCoords));
-            zlineExtended:= Copy(zlineRem,restGridSizeP,Length(zlineRem));
+              zlineRem:= Copy(zlineExtended,restGridSizeP,Length(zlineRem));
+              getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,length(FCoords));
+              zlineExtended:= Copy(zlineRem,(nrPartitions*nSegsP)-1,Length(zlineRem));
           end
     end
     else getZline(zlineExtended, FResolution, FCoords, FRads, length(zline), length(FCoords));

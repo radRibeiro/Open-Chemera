@@ -444,7 +444,7 @@ var
   x,y,z,i,j,k,index,step,limitS,limitE:Integer;
 
   nrPartitions,gridSizeP,nRowsP,nSegsP:Integer;
-  restGridSizeP,restRows,nRemSegments:Integer;
+  restGridSizeP,restRows,nSegs,nRemSegments:Integer;
   sFCoords,FCoordsRem:TCoords;
   fRadsRem,fRadsS:TFloats;
   totalNeededMemory, totalFreeMemory:Double;
@@ -478,45 +478,49 @@ begin
 //  ===================Solução Marrow====================
      totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
      totalFreeMemory := getTotalDeviceFreeMem();
+     nSegs:=length(zline)*length(zline)*length(zline);
     nrPartitions :=  trunc(totalNeededMemory/totalFreeMemory);
     if nrPartitions > 0 then
       begin
-        // remaining := round(Dmod(totalNeededMemory,totalFreeMemory)) <> 0;
-         gridSizeP := trunc(exp((1/3)*ln(length(zline) div nrPartitions)));
-         nRowsP := length(FCoords) div nrPartitions;
-         nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
-          SetLength(zlineS,nSegsP);
-          SetLength(sFCoords,nRowsP);
-          SetLength(fRadsS,nRowsP);
-          if nrPartitions = 1 then
+         remaining := round(Dmod(totalNeededMemory,totalFreeMemory)) <> 0;
+         if nrPartitions = 1 then
             begin
                 nrPartitions := nrPartitions +1;
             end;
+         gridSizeP := trunc(exp((1/3)*ln(length(zline) div nrPartitions)));
+         nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
+         SetLength(zlineS,nSegsP);
+         if (nrPartitions = 2) and remaining then
+           begin
+               for i := 0 to nrPartitions -1 do
+               begin
+             //Cópias aqui e invocação do getZLine para cada partição completa
+                zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
+                getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
+                zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
+               end
+           end
+         else
+         begin
         for i := 0 to nrPartitions do
         begin
-             //Cópias aqui e invocação do getZLine para cada partição completa
-           zlineS:=Copy(zlineExtended,i*(nSegsP),Length(zlineS));
-            sFCoords:=Copy(FCoords,i*(nRowsP),Length(sFCoords));
-             fRadsS:=Copy(FRads,i*(nRowsP),Length(fRadsS));
-             getZline(zlineS,FResolution,sFCoords,fRadsS,gridSizeP,nRowsP);
-               zlineExtended:= Copy(zlineS,i*(nSegsP),Length(zlineS));
+        //Cópias aqui e invocação do getZLine para cada partição completa
+          zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
+          getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
+          zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
+        end
         end;
-       { if remaining then
+        if remaining then
           begin
          // A last call to getZline with the remaining unprocessed elements
-             restGridSizeP := length(zline) - gridSizeP*nrPartitions;
-             restRows := length(FCoords)-nRowsP*nrPartitions;
+             restGridSizeP := trunc(exp((1/3)*ln(nSegs-nrPartitions*nSegsP)));
              nRemSegments:= restGridSizeP*restGridSizeP*restGridSizeP;
-              SetLength(FCoordsRem,restRows);
               SetLength(zlineRem,nRemSegments);
-              SetLength(fRadsRem,restRows);
               //Cópias aqui e invocação
               zlineRem:=Copy(zlineExtended,restGridSizeP,Length(zlineRem));
-              FCoordsRem:=Copy(FCoords,restRows,Length(FCoordsRem));
-              fRadsRem:=Copy(FRads,restRows,Length(fRadsRem));
-            getZline(zlineRem,FResolution,FCoordsRem,fRadsRem,restGridSizeP,restRows);
+            getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,length(FCoords));
             zlineExtended:= Copy(zlineRem,restGridSizeP,Length(zlineRem));
-          end}
+          end
     end
     else getZline(zlineExtended, FResolution, FCoords, FRads, length(zline), length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
@@ -529,7 +533,7 @@ begin
               FBase.Grid[x,y]:=IntegersToLine(zlineExtended,0,limitS,limitE);
               limitS+=step;
               limitE+=step;
-         end;
+         end
     end;
  {$ELSE}
 //  ===================Solução original====================

@@ -165,7 +165,7 @@ begin
  // WriteLn('length of FPoints ',length(FPoints));
  {$IFDEF ISPM}
  //=========Solução Marrow========================/
- // Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
+  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
  //=========Solução Original========================/
  {$ELSE}
   for x:=x1 to x2 do

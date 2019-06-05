@@ -452,9 +452,7 @@ var
 
   zline:TIntegers;
   zlineExtended,zlineS,zlineRem:TIntegers;
-
   remaining:Boolean;
-  gridM: array of array [0..2] of Integer;
   startGZL,stopGZL:TDateTime;
 
 begin
@@ -471,13 +469,14 @@ begin
   FBase.ZMax:=High(zline);
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
-  step:=length(zline);
+
 
   startGZL:=Now;
   {$DEFINE GETZLINE}
   {$IFDEF GETZLINE}
+  step:=length(zline);
 //  ===================Solução Marrow====================
-     totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
+    { totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
      totalFreeMemory := getTotalDeviceFreeMem();
      nSegs:=length(zline)*length(zline)*length(zline);
     nrPartitions :=  trunc(totalNeededMemory/totalFreeMemory);
@@ -516,11 +515,11 @@ begin
               nRemSegments := restGridSizeP*restGridSizeP*restGridSizeP;
               SetLength(zlineRem,nRemSegments);
               zlineRem:= Copy(zlineExtended,restGridSizeP,Length(zlineRem));
-              getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,length(FCoords));
+              getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,Length(FCoords));
               zlineExtended:= Copy(zlineRem,(nrPartitions*nSegsP)-1,Length(zlineRem));
           end
     end
-    else getZline(zlineExtended, FResolution, FCoords, FRads, length(zline), length(FCoords));
+    else} getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline), Length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
     limitS:=0;
     limitE :=FBase.ZMax;
@@ -552,7 +551,8 @@ begin
       end;
     end;
  {$ENDIF}
-  // PRINT PARA DETERMINAR O TEMPO DE EXECUCAO DA ZONA A PARALELIZAR
+  // PRINT PARA DETERMINAR O TEMPO DE EXECUCAO DESTE TROÇO EM ESPECIFICO
+  // PARA CADA ROTACAO
   stopGZL:=Now;
    if gzlPrints <= 1 then
     begin

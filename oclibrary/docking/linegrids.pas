@@ -197,7 +197,7 @@ begin
   //threshold = 0
   for f:=Limit1 to Limit2 do
     begin
-    if Ints[f]> 1 then
+    if (Ints[f] <> 0) or (Ints[f] <> 1) then
      begin
      Ints[f]:=0;
      end;
@@ -519,7 +519,8 @@ begin
               zlineExtended:= Copy(zlineRem,(nrPartitions*nSegsP)-1,Length(zlineRem));
           end
     end
-    else} getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline), Length(FCoords));
+    else}
+    getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline), Length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
     limitS:=0;
     limitE :=FBase.ZMax;

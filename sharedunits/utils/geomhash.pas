@@ -36,10 +36,13 @@ type
     FRads:TFloats;
     procedure GridBounds(out B1,B2:Integer; const Val:TFloat; const Hi:Integer);
       //Computes bounds of neighboring cells in one dimension, with max of Hi
-    procedure PrintTCoords(C:TCoord);
+   // procedure PrintTCoords(C:TCoord);
   public
     constructor Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
     function ListNeighours(C:TCoord):TIntegers;
+     procedure SumAtomIndexes(currentIndex:Integer);
+    function getLoopCount():Integer;
+    procedure ResetAtomCounter();
       //Returns all indexes in the 27 grid cells belonging to the neighbourhood
       //of the cell corresponding to C
     function IsInnerPoint(C:TCoord):Boolean;
@@ -48,7 +51,7 @@ type
 implementation
 
 { TGeomHasher }
-
+var iix:Integer;
 procedure TGeomHasher.GridBounds(out B1, B2: Integer; const Val: TFloat;
   const Hi: Integer);
 begin
@@ -59,12 +62,21 @@ begin
   if B2>Hi then B2:=Hi;
   if B2<0 then B2:=0;
 end;
-procedure TGeomHasher.PrintTCoords(C:TCoord);
+{procedure TGeomHasher.PrintTCoords(C:TCoord);
 begin
      WriteLn('TCOORDS: ');
      WriteLn('C[0]',C[0]);
      WriteLn('C[1]',C[1]);
      WriteLn('C[2]',C[2]);
+end;}
+function TGeomHasher.getLoopCount():Integer;
+begin
+     Result:= iix;
+end;
+
+procedure TGeomHasher.SumAtomIndexes(currentIndex:Integer);
+begin
+     iix := iix + currentIndex;
 end;
 constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
 
@@ -101,6 +113,7 @@ var
 
 begin
   inherited Create;
+
   Assert(Points<>nil,'Empty points array for hashing');
   Assert(GridStep>1e-6,'GridStep too small');
   FInvGridStep:=1/GridStep;
@@ -117,6 +130,10 @@ begin
     z:=Trunc(c[2]*FInvGridStep);
     AddToArray(f, FHashGrid[x,y,z]);
     end;
+end;
+procedure TGeomHasher.ResetAtomCounter();
+begin
+      iix := 0;
 end;
 
 function TGeomHasher.ListNeighours(C:TCoord):TIntegers;
@@ -153,9 +170,10 @@ function TGeomHasher.IsInnerPoint(C: TCoord): Boolean;
 var
   x,y,z,x1,x2,y1,y2,z1,z2,f,ix:Integer;
   tmpc:TCoord;
+  tmpIndex:Integer;
   dist:TFloat;
 begin
-{$DEFINE ISPM}
+//{$DEFINE ISPM}
   tmpc:=Multiply(Add(C,FShiftToGrid),FInvGridStep);
   Result:=False;
   GridBounds(x1,x2,tmpc[0],FHighX);
@@ -168,28 +186,44 @@ begin
 //  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
  //=========Solução Original========================/
  {$ELSE}
+
+
+
+
+ //WriteLn('L',Length(FHashGrid)*Length(FHashGrid[0,0,0]));
+ tmpIndex := 0;
   for x:=x1 to x2 do
     begin
+  //   WriteLn('x2 -x1 ',(x2 - x1));
+ //    WriteLn('x2 -x1 ', FHighX);
     for y:=y1 to y2 do
       begin
+  //    WriteLn('y2 -y1 ',(y2 - y1));
       for z:=z1 to z2 do
         begin
+ //       WriteLn('z2 -z1 ',(z2 - z1));
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
-          ix:=FHashGrid[x,y,z,f];
-          dist := Distance(C,FPoints[ix]);
-          if dist< FRads[ix] then
+  //        WriteLn('f ',f);
+            ix:=FHashGrid[x,y,z,f];   //
+            dist := Distance(C,FPoints[ix]);
+            tmpIndex:= tmpIndex + 1 ;
+          if dist < FRads[ix] then
             begin
             Result:=True;
-            Break;
+         //   Break;
             end;
-          end;
-        if Result then Break;
+         end;
+            SumAtomIndexes(tmpIndex);
+      //  if Result then Break;
         end;
-      if Result then Break;
+    //  if Result then Break;
       end;
-    if Result then Break;
+  //  if Result then Break;
     end;
+
+     WriteLn('iix ', getLoopCount());
+     ResetAtomCounter();
   {$ENDIF}
 end;
 

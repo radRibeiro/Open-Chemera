@@ -465,7 +465,8 @@ begin
   top:=Add(Max(FCoords),maxrad+1.5*FResolution);
   SetLength(FBase.Grid,Round(top[0]/FResolution),Round(top[1]/FResolution));
   SetLength(zline,Round(top[2]/FResolution));
-  SetLength(zlineExtended,length(zline)*length(zline)*length(zline));
+  SetLength(zlineExtended,(High(FBase.Grid) + 1)*
+                                            (High(FBase.Grid[x])+1)*length(zline));
   FBase.ZMax:=High(zline);
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
@@ -476,51 +477,7 @@ begin
   {$IFDEF GETZLINE}
   step:=length(zline);
 //  ===================Solução Marrow====================
-    { totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
-     totalFreeMemory := getTotalDeviceFreeMem();
-     nSegs:=length(zline)*length(zline)*length(zline);
-    nrPartitions :=  trunc(totalNeededMemory/totalFreeMemory);
-    if nrPartitions > 0 then
-      begin
-         remaining := round(Dmod(totalNeededMemory,totalFreeMemory)) <> 0;
-         if nrPartitions = 1 then
-            begin
-                nrPartitions := nrPartitions +1;
-            end;
-         gridSizeP := trunc(exp((1/3)*ln(length(zline) div nrPartitions)));
-         nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
-         SetLength(zlineS,nSegsP);
-         if (nrPartitions = 2) and remaining then
-           begin
-               for i := 0 to nrPartitions -1 do
-               begin
-                zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
-                getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
-                zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
-               end
-           end
-         else
-         begin
-        for i := 0 to nrPartitions do
-        begin
-          zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
-          getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
-          zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
-        end
-        end;
-        if remaining then
-          begin
-         // A last call to getZline with the remaining unprocessed zline elements
-              restGridSizeP := trunc(exp((1/3)*ln(nSegs-nrPartitions*nSegsP)));
-              nRemSegments := restGridSizeP*restGridSizeP*restGridSizeP;
-              SetLength(zlineRem,nRemSegments);
-              zlineRem:= Copy(zlineExtended,restGridSizeP,Length(zlineRem));
-              getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,Length(FCoords));
-              zlineExtended:= Copy(zlineRem,(nrPartitions*nSegsP)-1,Length(zlineRem));
-          end
-    end
-    else}
-    getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline), Length(FCoords));
+    getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline),(High(FBase.Grid[0])+1),(High(FBase.Grid) + 1), Length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
     limitS:=0;
     limitE :=FBase.ZMax;
@@ -534,15 +491,22 @@ begin
          end
     end;
  {$ELSE}
+      //  WriteLn(High(FBase.Grid)*High(FBase.Grid[0]), ' GZL ms');
 //  ===================Solução original====================
-  for x:=0 to High(FBase.Grid) do
+     WriteLn(High(FBase.Grid), ' gridX');
+     WriteLn(High(FBase.Grid[0]), ' gridY');
+     WriteLn(High(zline),' gridZ');
+    for x:=0 to High(FBase.Grid) do
     begin
+
      xyzpoint[0]:=x*FResolution+halfres;
     for y:=0 to High(FBase.Grid[x]) do
       begin
+
       xyzpoint[1]:=y*FResolution+halfres;
        for z:=0 to High(zline) do
         begin
+
         xyzpoint[2]:=z*FResolution+halfres;
         if hash.IsInnerPoint(xyzpoint) then
           zline[z]:=1
@@ -557,7 +521,7 @@ begin
   stopGZL:=Now;
    if gzlPrints <= 1 then
     begin
-      WriteLn(FormatDateTime('hh.nn.ss.zzz', stopGZL-startGZL), ' GZL ms');
+   //   WriteLn(FormatDateTime('hh.nn.ss.zzz', stopGZL-startGZL), ' GZL ms');
     end;
   hash.Free;
 end;
@@ -615,3 +579,48 @@ end;
 
 end.
 
+
+{ totalNeededMemory := getNeededMemoryInBytes(length(zline),length(FCoords));
+    totalFreeMemory := getTotalDeviceFreeMem();
+    nSegs:=length(zline)*length(zline)*length(zline);
+   nrPartitions :=  trunc(totalNeededMemory/totalFreeMemory);
+   if nrPartitions > 0 then
+     begin
+        remaining := round(Dmod(totalNeededMemory,totalFreeMemory)) <> 0;
+        if nrPartitions = 1 then
+           begin
+               nrPartitions := nrPartitions +1;
+           end;
+        gridSizeP := trunc(exp((1/3)*ln(length(zline) div nrPartitions)));
+        nSegsP :=  gridSizeP*gridSizeP*gridSizeP;
+        SetLength(zlineS,nSegsP);
+        if (nrPartitions = 2) and remaining then
+          begin
+              for i := 0 to nrPartitions -1 do
+              begin
+               zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
+               getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
+               zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
+              end
+          end
+        else
+        begin
+       for i := 0 to nrPartitions do
+       begin
+         zlineS:=Copy(zlineExtended,i*nSegsP,Length(zlineS));
+         getZline(zlineS,FResolution,FCoords,FRads,gridSizeP,length(FCoords));
+         zlineExtended:=Copy(zlineS,i*nSegsP,Length(zlineS));
+       end
+       end;
+       if remaining then
+         begin
+        // A last call to getZline with the remaining unprocessed zline elements
+             restGridSizeP := trunc(exp((1/3)*ln(nSegs-nrPartitions*nSegsP)));
+             nRemSegments := restGridSizeP*restGridSizeP*restGridSizeP;
+             SetLength(zlineRem,nRemSegments);
+             zlineRem:= Copy(zlineExtended,restGridSizeP,Length(zlineRem));
+             getZline(zlineRem,FResolution,FCoords,FRads,restGridSizeP,Length(FCoords));
+             zlineExtended:= Copy(zlineRem,(nrPartitions*nSegsP)-1,Length(zlineRem));
+         end
+   end
+   else}

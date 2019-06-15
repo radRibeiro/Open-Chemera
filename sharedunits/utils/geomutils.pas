@@ -33,8 +33,6 @@ const
   MCXYZRotation=0;
   MCRotationXYAxis=1;
 
-var
-   zLineExt : TIntegers; external name 'zlineExt';
 function Quaternion(r,i,j,k:TFloat):TQuaternion;
 function Dmod(d1,d2:Double):Double;
 function Add(v1:TCoord;r:TFloat):TCoord;overload;
@@ -163,25 +161,31 @@ function LongestCoord(c:TCoord):TFloat;
    }
 
 // Marrow functions
-//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
-// ;fPointsNR:Integer):Boolean;cdecl;
+{$define GETZLINE}
+{$IFDEF GETZLINE}
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
+ ;fPointsNR:Integer):Boolean;cdecl;
 //function getTotalDeviceFreeMem():Double;cdecl;
+var
+   zLineExt : TIntegers; external name 'zlineExt';
 procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords
-  ; fRads:TFloats;gridSize:Integer
+  ; fRads:TFloats;gridSize:Integer;gridY:Integer; gridX:Integer
   ;fPointsNR:Integer)cdecl;
-
+{$endif}
 
 implementation
 
 uses Math;
+{$IFDEF GETZLINE}
 //Invocar .so do marrow protein docking
 {$linklib libmarrow_protein_docking.so}
 {$linklib c}
 {$linklib stdc++}
-//function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
+function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats;fPointsNR:Integer):Boolean;cdecl;external;
 //function getTotalDeviceFreeMem():Double;cdecl;external;
-procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords; fRads:TFloats;gridSize:Integer;fPointsNR:Integer)cdecl; external;
-
+procedure getZline(zline:TIntegers;fResolution:TFloat;fPoints:TCoords; fRads:TFloats;gridSize:Integer
+  ;gridY:Integer; gridX:Integer;fPointsNR:Integer)cdecl; external;
+{$endif}
 function Quaternion(r, i, j, k: TFloat): TQuaternion;
 begin
   Result[0]:=r;

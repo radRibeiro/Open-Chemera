@@ -37,7 +37,7 @@ type
     procedure GridBounds(out B1,B2:Integer; const Val:TFloat; const Hi:Integer);
       //Computes bounds of neighboring cells in one dimension, with max of Hi
   public
-    constructor Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
+    constructor Create(Points:TCoords;GridStep:TFloat;maxX:Integer;maxY:Integer;maxZ:Integer;Rads:TFloats=nil;dummyCreate:Boolean = false);
     function ListNeighours(C:TCoord):TIntegers;
      procedure SumAtomIndexes(currentIndex:Integer);
     function getLoopCount():Integer;
@@ -78,7 +78,7 @@ procedure TGeomHasher.SumAtomIndexes(currentIndex:Integer);
 begin
      iix := iix + currentIndex;
 end;
-constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
+constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;maxX:Integer;maxY:Integer;maxZ:Integer;Rads:TFloats=nil;dummyCreate:Boolean=false);
 
   procedure Setup;
 
@@ -90,11 +90,20 @@ constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
   minc:=Min(Points);
   FShiftToGrid:=Simmetric(minc);
   // calcular o indice máximo das células em cada eixo do referencial
+  if not dummyCreate then
+  begin
   FHighX:=Trunc((maxc[0]-minc[0])/GridStep);
   FHighY:=Trunc((maxc[1]-minc[1])/GridStep);
   FHighZ:=Trunc((maxc[2]-minc[2])/GridStep);
-
-  SetLength(FHashGrid,FHighX+1,FHighY+1,FHighZ+1);
+    SetLength(FHashGrid,FHighX+1,FHighY+1,FHighZ+1);
+  end
+  else
+  begin
+  FHighX:=  maxX;
+  FHighY:=   maxY;
+  FHighZ:=   maxZ;
+   SetLength(FHashGrid,FHighX,FHighY,FHighZ);
+   end;
  {
     WriteLn('FHX',FHighX+1);
     WriteLn('FHY',FHighY+1);

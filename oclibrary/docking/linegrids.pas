@@ -467,7 +467,7 @@ begin
   SetLength(zline,Round(top[2]/FResolution));
 
   FBase.ZMax:=High(zline);
-  hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
+  hash:=TGeomHasher.Create(FCoords,maxrad,Round(top[0]/FResolution),Round(top[1]/FResolution),Round(top[2]/FResolution),FRads,true);
   halfres:=0.5*FResolution;
 
 

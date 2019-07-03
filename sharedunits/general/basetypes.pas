@@ -29,19 +29,20 @@ uses
 const
   //Tiny is a small number that generally should be rounded to zero,
   //as in most cases it is due to rounding errors.
-  //{$IFDEF SINGLEPRECISION}
+ // {$IFDEF SINGLEPRECISION}
   Tiny = 1e-6;
-  //{$ELSE}
+//  {$ELSE}
   //Tiny = 1e-12;
- // {$ENDIF}
+// {$ENDIF}
 
 type
   TSimpleStrings = array of string;
- // {$IFDEF SINGLEPRECISION}
+  {$DEFINE SINGLEPRECISION}
+  {$IFDEF SINGLEPRECISION}
   TFloat = Single;
-  //{$ELSE}
+  {$ELSE}
   //TFloat = Double; //This is the default
-  //{$ENDIF}
+  {$ENDIF}
   TFloats = array of TFloat;
   TDoubles = array of Double;
   TSingles = array of Single;

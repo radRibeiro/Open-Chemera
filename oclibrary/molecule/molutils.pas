@@ -272,7 +272,7 @@ var
 begin
   SetLength(Result,Length(FromCoords));
   tmprads:=FilledFloats(Length(ToCoords),Dist);
-  hasher:=TGeomHasher.Create(ToCoords,Dist,tmprads);
+  hasher:=TGeomHasher.Create(ToCoords,Dist,0,0,0,tmprads);
   ix:=0;
   for f:=0 to High(FromCoords) do
     if hasher.IsInnerPoint(FromCoords[f]) then

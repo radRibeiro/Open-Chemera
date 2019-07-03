@@ -83,7 +83,7 @@ begin
   if Points=nil then Exit;
   hashcell:=LargestRadius*2;
   if hashcell<MinHashCell then hashcell:=MinHashCell;
-  ghash:=TGeomHasher.Create(Points,hashcell);
+  ghash:=TGeomHasher.Create(Points,hashcell,0,0,0,nil,false);
   for f:=0 to High(Points) do
     begin
     ixs:=ghash.ListNeighours(Points[f]);

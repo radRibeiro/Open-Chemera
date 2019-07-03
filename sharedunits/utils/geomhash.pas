@@ -36,7 +36,6 @@ type
     FRads:TFloats;
     procedure GridBounds(out B1,B2:Integer; const Val:TFloat; const Hi:Integer);
       //Computes bounds of neighboring cells in one dimension, with max of Hi
-   // procedure PrintTCoords(C:TCoord);
   public
     constructor Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
     function ListNeighours(C:TCoord):TIntegers;
@@ -57,6 +56,7 @@ procedure TGeomHasher.GridBounds(out B1, B2: Integer; const Val: TFloat;
 begin
   B1:=Trunc(Val)-1;
   B2:=Trunc(Val)+1;
+
   if B1>Hi then B1:=Hi;
   if B1<0 then B1:=0;
   if B2>Hi then B2:=Hi;
@@ -89,11 +89,27 @@ constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
   maxc:=Max(Points);
   minc:=Min(Points);
   FShiftToGrid:=Simmetric(minc);
+  // calcular o indice máximo das células em cada eixo do referencial
   FHighX:=Trunc((maxc[0]-minc[0])/GridStep);
   FHighY:=Trunc((maxc[1]-minc[1])/GridStep);
   FHighZ:=Trunc((maxc[2]-minc[2])/GridStep);
-  SetLength(FHashGrid,FHighX+1,FHighY+1,FHighZ+1);
 
+  SetLength(FHashGrid,FHighX+1,FHighY+1,FHighZ+1);
+ {
+    WriteLn('FHX',FHighX+1);
+    WriteLn('FHY',FHighY+1);
+    WriteLn('FHZ',FHighZ+1);
+
+    WriteLn('maxX',maxc[0]);
+    WriteLn('maxY',maxc[1]);
+    WriteLn('maxZ',maxc[2]);
+
+    WriteLn('minX',minc[0]);
+    WriteLn('minY',minc[1]);
+    WriteLn('minZ',minc[2]);
+ }
+  WriteLn('GridStep',GridStep);
+//  WriteLn('FHGLENGTH',Length(FHashGrid));
   if Rads=nil then
     begin  // geomhasher used only for indexing regions
     FPoints:=nil;
@@ -108,28 +124,33 @@ constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;Rads:TFloats=nil);
   end;
 
 var
-  f,x,y,z:Integer;
+  f,x,y,z,i:Integer;
   c:TCoord;
 
 begin
   inherited Create;
-
+   //Inicialização do HashGrid
   Assert(Points<>nil,'Empty points array for hashing');
   Assert(GridStep>1e-6,'GridStep too small');
   FInvGridStep:=1/GridStep;
+  // Após o setup conhecemos os valores de highx, highy e highz
   Setup;
+  i:=0;
   for x:=0 to FHighX do
     for y:=0 to FHighY do
       for z:=0 to FHighZ do
         FHashGrid[x,y,z]:=nil;
+  // número de átomos -1
+  //  Length(Points) adds ao hashgrid
   for f:=0 to High(Points) do
-    begin
-    c:=Add(Points[f],FShiftToGrid);
-    x:=Trunc(c[0]*FInvGridStep);
-    y:=Trunc(c[1]*FInvGridStep);
-    z:=Trunc(c[2]*FInvGridStep);
-    AddToArray(f, FHashGrid[x,y,z]);
-    end;
+  begin
+            c:=Add(Points[f],FShiftToGrid);
+            x:=Trunc(c[0]*FInvGridStep);
+            y:=Trunc(c[1]*FInvGridStep);
+            z:=Trunc(c[2]*FInvGridStep);
+            AddToArray(f, FHashGrid[x,y,z]);
+  end;
+
 end;
 procedure TGeomHasher.ResetAtomCounter();
 begin
@@ -149,10 +170,12 @@ begin
   GridBounds(y1,y2,C[1],FHighY);
   GridBounds(z1,z2,C[2],FHighZ);
   count:=0;
+
   for x:=x1 to x2 do
     for y:=y1 to y2 do
       for z:=z1 to z2 do
        count:=count+Length(FHashGrid[x,y,z]);
+
   SetLength(Result,count);
   count:=0;
   for x:=x1 to x2 do
@@ -180,50 +203,39 @@ begin
   GridBounds(y1,y2,tmpc[1],FHighY);
   GridBounds(z1,z2,tmpc[2],FHighZ);
   //Substituir os loops por uma chamada do isInnerPoint do marrow
- // WriteLn('length of FPoints ',length(FPoints));
  {$IFDEF ISPM}
- //=========Solução Marrow========================/
+ //=========Solução Marrow isInnerPoint========================/
 //  Result:=isInnerPointM(C,FPoints,FRads,length(FPoints));
  //=========Solução Original========================/
  {$ELSE}
-
-
-
-
- //WriteLn('L',Length(FHashGrid)*Length(FHashGrid[0,0,0]));
  tmpIndex := 0;
-  for x:=x1 to x2 do
+  for x:=0 to FHighX do
     begin
-  //   WriteLn('x2 -x1 ',(x2 - x1));
- //    WriteLn('x2 -x1 ', FHighX);
-    for y:=y1 to y2 do
+    for y:=0 to FHighY do
       begin
-  //    WriteLn('y2 -y1 ',(y2 - y1));
-      for z:=z1 to z2 do
+      for z:=0 to FHighZ do
         begin
- //       WriteLn('z2 -z1 ',(z2 - z1));
         for f:=0 to High(FHashGrid[x,y,z]) do
           begin
-  //        WriteLn('f ',f);
             ix:=FHashGrid[x,y,z,f];   //
             dist := Distance(C,FPoints[ix]);
-            tmpIndex:= tmpIndex + 1 ;
+            tmpIndex:= tmpIndex + 1;
           if dist < FRads[ix] then
             begin
             Result:=True;
-         //   Break;
+            Break;
             end;
          end;
             SumAtomIndexes(tmpIndex);
-      //  if Result then Break;
+        if Result then Break;
         end;
-    //  if Result then Break;
+      if Result then Break;
       end;
-  //  if Result then Break;
+    if Result then Break;
     end;
 
-     WriteLn('iix ', getLoopCount());
-     ResetAtomCounter();
+   //  WriteLn('iix ', getLoopCount());
+   //  ResetAtomCounter();
   {$ENDIF}
 end;
 

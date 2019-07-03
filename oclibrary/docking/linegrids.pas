@@ -26,7 +26,7 @@ uses
 type
 
   TLineSegment=array [0..1] of Integer;  //start, end of segment
-  TGridLine=array of TLineSegment;       //disjunt segments sorted from lower to high
+  TGridLine=array of TLineSegment; //disjunt segments sorted from lower to high
   TLineArray=array of TGridLine;
   TGridPlane=array of array of TGridLine;
 
@@ -35,8 +35,8 @@ type
       NonEmpty:TLineArray;    //X oriented array of non-empty gridlines
       CellCounts:array of array of Integer;
       //CellsBelowMiddle,CellsAboveMiddle:array of array of Integer;
-        //tested, and does not improve performance because when core splits domain there
-        //is already too much overlap for more pruning with cellcounts
+      //tested, and does not improve performance because when core splits domain there
+      //is already too much overlap for more pruning with cellcounts
       TotalCount:Integer;
       ZMax:Integer;
   end;
@@ -465,19 +465,21 @@ begin
   top:=Add(Max(FCoords),maxrad+1.5*FResolution);
   SetLength(FBase.Grid,Round(top[0]/FResolution),Round(top[1]/FResolution));
   SetLength(zline,Round(top[2]/FResolution));
-  SetLength(zlineExtended,(High(FBase.Grid) + 1)*
-                                            (High(FBase.Grid[x])+1)*length(zline));
+
   FBase.ZMax:=High(zline);
   hash:=TGeomHasher.Create(FCoords,maxrad,FRads);
   halfres:=0.5*FResolution;
 
 
   startGZL:=Now;
-  {$DEFINE GETZLINE}
+  //{$DEFINE GETZLINE}
   {$IFDEF GETZLINE}
+    //zline array
+  SetLength(zlineExtended,Length(zline)*(High(FBase.Grid[0])+1)*(High(FBase.Grid) + 1));
   step:=length(zline);
 //  ===================Solução Marrow====================
-    getZline(zlineExtended, FResolution, FCoords, FRads, Length(zline),(High(FBase.Grid[0])+1),(High(FBase.Grid) + 1), Length(FCoords));
+    getZline(zlineExtended, FResolution, FCoords
+    , FRads, Length(zline),(High(FBase.Grid[0])+1),(High(FBase.Grid) + 1), Length(FCoords));
   //Zline apos o kernel são os 0s e 1s para a grelha toda em vez de uma só linha
     limitS:=0;
     limitE :=FBase.ZMax;
@@ -491,11 +493,7 @@ begin
          end
     end;
  {$ELSE}
-      //  WriteLn(High(FBase.Grid)*High(FBase.Grid[0]), ' GZL ms');
 //  ===================Solução original====================
-     WriteLn(High(FBase.Grid), ' gridX');
-     WriteLn(High(FBase.Grid[0]), ' gridY');
-     WriteLn(High(zline),' gridZ');
     for x:=0 to High(FBase.Grid) do
     begin
 
@@ -506,16 +504,18 @@ begin
       xyzpoint[1]:=y*FResolution+halfres;
        for z:=0 to High(zline) do
         begin
-
         xyzpoint[2]:=z*FResolution+halfres;
         if hash.IsInnerPoint(xyzpoint) then
           zline[z]:=1
         else zline[z]:=0;
+
         end;
          FBase.Grid[x,y]:=IntegersToLine(zline);
       end;
     end;
  {$ENDIF}
+ //WriteLn(hash.getLoopCount()/(Length(zlineExtended)), ' average atoms used');
+ //hash.ResetAtomCounter();
   // PRINT PARA DETERMINAR O TEMPO DE EXECUCAO DESTE TROÇO EM ESPECIFICO
   // PARA CADA ROTACAO
   stopGZL:=Now;

@@ -521,7 +521,9 @@ begin
   stopGZL:=Now;
    if gzlPrints <= 1 then
     begin
-   //   WriteLn(FormatDateTime('hh.nn.ss.zzz', stopGZL-startGZL), ' GZL ms');
+    WriteLn('total segments ', Length(zline)*(High(FBase.Grid[0])+1)*(High(FBase.Grid) + 1));
+    WriteLn('total atoms ', Length(FCoords));
+    WriteLn(FormatDateTime('hh.nn.ss.zzz', stopGZL-startGZL), ' GZL ms');
     end;
   hash.Free;
 end;

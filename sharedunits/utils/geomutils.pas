@@ -161,7 +161,7 @@ function LongestCoord(c:TCoord):TFloat;
    }
 
 // Marrow functions
-{$define GETZLINE}
+//{$define GETZLINE}
 {$IFDEF GETZLINE}
 function isInnerPointM(C:TCoord; fPoints:TCoords; fRads:TFloats
  ;fPointsNR:Integer):Boolean;cdecl;

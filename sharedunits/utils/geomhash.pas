@@ -99,10 +99,10 @@ constructor TGeomHasher.Create(Points:TCoords;GridStep:TFloat;maxX:Integer;maxY:
   end
   else
   begin
-  FHighX:=  maxX;
-  FHighY:=   maxY;
-  FHighZ:=   maxZ;
-   SetLength(FHashGrid,FHighX,FHighY,FHighZ);
+  FHighX:=maxX;
+  FHighY:=maxY;
+  FHighZ:=maxZ;
+   SetLength(FHashGrid,FHighX+1,FHighY+1,FHighZ+1);
    end;
  {
     WriteLn('FHX',FHighX+1);
@@ -145,12 +145,15 @@ begin
   // Após o setup conhecemos os valores de highx, highy e highz
   Setup;
   i:=0;
+
   for x:=0 to FHighX do
     for y:=0 to FHighY do
       for z:=0 to FHighZ do
+
         FHashGrid[x,y,z]:=nil;
   // número de átomos -1
   //  Length(Points) adds ao hashgrid
+    //   WriteLn('ABCD');
   for f:=0 to High(Points) do
   begin
             c:=Add(Points[f],FShiftToGrid);
@@ -218,6 +221,7 @@ begin
  //=========Solução Original========================/
  {$ELSE}
  tmpIndex := 0;
+ //WriteLn('ABCD');
   for x:=0 to FHighX do
     begin
     for y:=0 to FHighY do
